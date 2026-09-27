@@ -2,144 +2,288 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <meta name="theme-color" content="#080a0f">
+
 <title>CalcX — Everything Calculator</title>
 
+<meta name="description"
+content="CalcX is a free all-in-one online calculator with scientific, finance, math, health, student, conversion and everyday calculators.">
+
+<meta name="keywords"
+content="calculator, online calculator, scientific calculator, EMI calculator, GST calculator, percentage calculator, BMI calculator, unit converter">
+
+<meta name="robots" content="index, follow">
+
+<!-- GOOGLE SEARCH CONSOLE VERIFICATION -->
+<meta name="google-site-verification"
+content="Bj0tqZZBWazLwyEqap3URL1hvu3C-S7G4BMBIMtNnDo">
+
+<!-- CANONICAL -->
+<link rel="canonical"
+href="https://calc-x-everything-calc.vercel.app/">
+
+<!-- OPEN GRAPH -->
+<meta property="og:title"
+content="CalcX — Everything Calculator">
+
+<meta property="og:description"
+content="Calculate anything with CalcX — free calculators for math, finance, health, students, conversions and everyday life.">
+
+<meta property="og:type" content="website">
+
+<meta property="og:url"
+content="https://calc-x-everything-calc.vercel.app/">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 :root{
   --bg:#080a0f;
   --bg2:#0d1017;
-  --panel:#11151d;
-  --panel2:#171c26;
+  --card:rgba(19,23,32,.82);
+  --card2:#151a24;
   --text:#f7f8fb;
-  --muted:#8b94a7;
+  --muted:#8f98aa;
   --line:rgba(255,255,255,.08);
   --accent:#7c5cff;
-  --accent2:#20d9a5;
-  --danger:#ff5577;
-  --warning:#ffd15c;
-  --shadow:0 25px 70px rgba(0,0,0,.38);
-  --radius:22px;
+  --accent2:#9c7cff;
+  --green:#35e39a;
+  --red:#ff5577;
+  --yellow:#ffc857;
+  --shadow:0 20px 60px rgba(0,0,0,.35);
 }
 
-.light{
-  --bg:#f3f5fa;
-  --bg2:#fff;
-  --panel:#fff;
-  --panel2:#f0f2f7;
-  --text:#151821;
-  --muted:#687083;
+body.light{
+  --bg:#f4f6fa;
+  --bg2:#ffffff;
+  --card:rgba(255,255,255,.88);
+  --card2:#ffffff;
+  --text:#11131a;
+  --muted:#687080;
   --line:rgba(0,0,0,.08);
-  --shadow:0 20px 50px rgba(30,40,70,.12);
+  --shadow:0 20px 50px rgba(0,0,0,.08);
 }
 
-*{box-sizing:border-box}
-
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
-  margin:0;
   min-height:100vh;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   background:
-    radial-gradient(circle at 15% -10%,rgba(124,92,255,.2),transparent 32%),
-    radial-gradient(circle at 90% 20%,rgba(32,217,165,.08),transparent 25%),
+    radial-gradient(circle at 15% 0%,rgba(124,92,255,.18),transparent 30%),
+    radial-gradient(circle at 90% 20%,rgba(53,227,154,.08),transparent 25%),
     var(--bg);
   color:var(--text);
-  font-family:Inter,Arial,sans-serif;
   overflow-x:hidden;
+  transition:background .4s,color .4s;
 }
 
-button,input,select{font:inherit}
+button,
+input,
+select{
+  font:inherit;
+}
 
-button{cursor:pointer}
+button{
+  cursor:pointer;
+  border:0;
+}
 
-button:active{transform:scale(.96)}
+.hidden{
+  display:none!important;
+}
 
-::-webkit-scrollbar{width:7px;height:7px}
-::-webkit-scrollbar-thumb{background:#303747;border-radius:20px}
+/* SPLASH */
+
+#splash{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#080a0f;
+  transition:opacity .7s,visibility .7s;
+}
+
+#splash.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.splashBox{
+  text-align:center;
+  animation:splashIn .8s ease;
+}
+
+.logoBig{
+  width:82px;
+  height:82px;
+  margin:auto;
+  border-radius:26px;
+  display:grid;
+  place-items:center;
+  font-size:38px;
+  font-weight:900;
+  background:linear-gradient(135deg,#7c5cff,#a987ff);
+  box-shadow:
+    0 0 0 10px rgba(124,92,255,.08),
+    0 20px 70px rgba(124,92,255,.35);
+}
+
+.splashTitle{
+  margin-top:20px;
+  font-size:30px;
+  font-weight:900;
+}
+
+.splashSub{
+  margin-top:6px;
+  color:#858da0;
+}
+
+.loader{
+  width:150px;
+  height:4px;
+  margin:28px auto 0;
+  background:#202532;
+  overflow:hidden;
+  border-radius:20px;
+}
+
+.loader span{
+  display:block;
+  height:100%;
+  width:40%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#7c5cff,#35e39a);
+  animation:loader 1.2s infinite;
+}
+
+@keyframes loader{
+  0%{transform:translateX(-150%)}
+  100%{transform:translateX(400%)}
+}
+
+@keyframes splashIn{
+  from{opacity:0;transform:scale(.8) translateY(20px)}
+  to{opacity:1;transform:none}
+}
+
+/* PARTICLES */
 
 #particles{
   position:fixed;
   inset:0;
   pointer-events:none;
   z-index:-1;
+  opacity:.6;
 }
 
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:rgba(8,10,15,.72);
-  backdrop-filter:blur(22px);
-  border-bottom:1px solid var(--line);
-}
+/* APP */
 
-.light .topbar{
-  background:rgba(243,245,250,.78);
-}
-
-.nav{
-  height:70px;
-  max-width:1250px;
+.app{
+  max-width:1400px;
   margin:auto;
-  padding:0 18px;
+  padding:20px;
+}
+
+/* HEADER */
+
+.header{
+  position:sticky;
+  top:12px;
+  z-index:50;
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  gap:15px;
+  padding:13px 15px;
+  border:1px solid var(--line);
+  background:rgba(12,15,22,.72);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+}
+
+body.light .header{
+  background:rgba(255,255,255,.78);
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:11px;
-  font-family:"Space Grotesk";
-  font-weight:700;
-  font-size:21px;
+  gap:10px;
+  min-width:max-content;
 }
 
-.logo{
-  width:39px;
-  height:39px;
-  border-radius:13px;
-  display:grid;
-  place-items:center;
-  color:white;
-  font-size:19px;
-  background:linear-gradient(135deg,#6848ff,#aa91ff);
-  box-shadow:0 10px 30px rgba(124,92,255,.35);
-  position:relative;
-  overflow:hidden;
-}
-
-.logo:after{
-  content:"";
-  position:absolute;
-  width:80px;
-  height:10px;
-  background:rgba(255,255,255,.25);
-  transform:rotate(-35deg);
-  left:-90px;
-  animation:shine 3.5s infinite;
-}
-
-@keyframes shine{
-  0%,65%{left:-90px}
-  100%{left:70px}
-}
-
-.navBtns{
-  display:flex;
-  gap:8px;
-}
-
-.iconBtn{
+.brandIcon{
   width:42px;
   height:42px;
   border-radius:13px;
-  background:var(--panel);
+  display:grid;
+  place-items:center;
+  font-size:20px;
+  font-weight:900;
+  background:linear-gradient(135deg,#7c5cff,#a67dff);
+  box-shadow:0 8px 25px rgba(124,92,255,.3);
+}
+
+.brandText{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:-.6px;
+}
+
+.brandText span{
+  color:#8d70ff;
+}
+
+.search{
+  flex:1;
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  height:44px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  outline:0;
+  background:var(--card2);
+  color:var(--text);
+  padding:0 16px 0 43px;
+  transition:.25s;
+}
+
+.search input:focus{
+  border-color:rgba(124,92,255,.6);
+  box-shadow:0 0 0 4px rgba(124,92,255,.08);
+}
+
+.searchIcon{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+}
+
+.iconBtn{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:var(--card2);
   border:1px solid var(--line);
   color:var(--text);
   transition:.25s;
@@ -147,1444 +291,2224 @@ button:active{transform:scale(.96)}
 
 .iconBtn:hover{
   transform:translateY(-2px);
-  border-color:rgba(124,92,255,.45);
+  border-color:rgba(124,92,255,.4);
 }
 
-.app{
-  max-width:1250px;
-  margin:auto;
-  padding:0 18px 120px;
-}
+/* HERO */
 
 .hero{
-  padding:44px 0 24px;
-  animation:heroIn .7s ease both;
+  margin:30px 0 25px;
+  padding:38px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 85% 10%,rgba(124,92,255,.28),transparent 30%),
+    radial-gradient(circle at 10% 100%,rgba(53,227,154,.09),transparent 30%),
+    var(--card);
+  box-shadow:var(--shadow);
+  animation:fadeUp .7s ease;
 }
 
-@keyframes heroIn{
-  from{opacity:0;transform:translateY(22px)}
-  to{opacity:1;transform:none}
+.hero:after{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  right:-100px;
+  bottom:-150px;
+  border-radius:50%;
+  background:rgba(124,92,255,.1);
+  filter:blur(20px);
 }
 
 .hero h1{
-  margin:0;
-  font-family:"Space Grotesk";
-  font-size:clamp(38px,7vw,68px);
-  line-height:.98;
+  position:relative;
+  z-index:1;
+  font-size:clamp(32px,5vw,62px);
+  line-height:1;
   letter-spacing:-3px;
+  max-width:750px;
 }
 
 .gradient{
-  background:linear-gradient(100deg,#fff 10%,#9c83ff 48%,#55e7c0);
+  background:linear-gradient(90deg,#9d83ff,#35e39a);
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
 }
 
-.light .gradient{
-  background:linear-gradient(100deg,#171821,#6848ff,#0b9f7a);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-
 .hero p{
+  position:relative;
+  z-index:1;
+  margin-top:15px;
   color:var(--muted);
-  max-width:700px;
-  line-height:1.65;
-  margin:16px 0 25px;
-}
-
-.search{
-  height:58px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  background:rgba(17,21,29,.9);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:0 18px;
-  box-shadow:var(--shadow);
-  transition:.3s;
-}
-
-.light .search{background:#fff}
-
-.search:focus-within{
-  border-color:rgba(124,92,255,.7);
-  box-shadow:0 0 0 4px rgba(124,92,255,.1),var(--shadow);
-}
-
-.search span{
-  color:var(--muted);
-  font-size:19px;
-}
-
-.search input{
-  flex:1;
-  min-width:0;
-  border:0;
-  outline:0;
-  color:var(--text);
-  background:none;
   font-size:16px;
+  max-width:680px;
+  line-height:1.6;
 }
 
-.stats{
+.heroStats{
   display:flex;
-  gap:9px;
   flex-wrap:wrap;
-  margin:19px 0 28px;
+  gap:10px;
+  margin-top:25px;
 }
 
-.pill{
+.stat{
+  padding:10px 14px;
   border:1px solid var(--line);
-  background:var(--panel);
-  padding:9px 13px;
-  border-radius:100px;
+  border-radius:12px;
+  background:rgba(255,255,255,.035);
   color:var(--muted);
-  font-size:12px;
+  font-size:13px;
 }
 
-.pill b{color:var(--text)}
-
-.sectionHead{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  margin:28px 0 13px;
+.stat b{
+  color:var(--text);
 }
 
-.sectionHead h2{
-  font-family:"Space Grotesk";
-  margin:0;
-  font-size:21px;
-}
-
-.sectionHead small{color:var(--muted)}
+/* CATEGORIES */
 
 .categories{
   display:flex;
   gap:9px;
   overflow-x:auto;
-  padding:4px 0 12px;
   scrollbar-width:none;
+  padding:3px 1px 12px;
 }
 
-.categories::-webkit-scrollbar{display:none}
+.categories::-webkit-scrollbar{
+  display:none;
+}
 
-.category{
+.chip{
   white-space:nowrap;
+  padding:10px 15px;
+  border-radius:12px;
+  background:var(--card);
   color:var(--muted);
-  background:var(--panel);
   border:1px solid var(--line);
-  border-radius:14px;
-  padding:10px 14px;
   transition:.25s;
 }
 
-.category:hover,
-.category.active{
-  color:white;
-  background:rgba(124,92,255,.17);
-  border-color:rgba(124,92,255,.55);
+.chip:hover{
   transform:translateY(-2px);
 }
 
-.light .category:hover,
-.light .category.active{color:#171821}
+.chip.active{
+  color:white;
+  background:linear-gradient(135deg,#7c5cff,#6849e8);
+  border-color:transparent;
+  box-shadow:0 8px 25px rgba(124,92,255,.25);
+}
+
+/* SECTION */
+
+.sectionHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:24px 0 14px;
+}
+
+.sectionHead h2{
+  font-size:21px;
+}
+
+.sectionHead span{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* GRID */
 
 .grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:13px;
+  gap:14px;
 }
 
 .card{
-  min-height:148px;
   position:relative;
-  overflow:hidden;
-  padding:18px;
-  border-radius:var(--radius);
-  background:linear-gradient(145deg,var(--panel2),var(--panel));
+  min-height:150px;
+  padding:19px;
+  border-radius:20px;
   border:1px solid var(--line);
+  background:var(--card);
+  overflow:hidden;
   cursor:pointer;
   transition:
     transform .3s cubic-bezier(.2,.8,.2,1),
     border-color .3s,
     box-shadow .3s;
-  animation:cardIn .45s ease both;
-}
-
-.card:before{
-  content:"";
-  position:absolute;
-  width:100px;
-  height:100px;
-  top:-35px;
-  left:-30px;
-  background:var(--accent);
-  filter:blur(50px);
-  opacity:.1;
+  animation:cardIn .55s both;
 }
 
 .card:hover{
-  transform:translateY(-7px) scale(1.012);
-  border-color:rgba(124,92,255,.4);
-  box-shadow:0 20px 50px rgba(0,0,0,.25);
+  transform:translateY(-6px);
+  border-color:rgba(124,92,255,.38);
+  box-shadow:0 20px 45px rgba(0,0,0,.2);
 }
 
-@keyframes cardIn{
-  from{opacity:0;transform:translateY(15px) scale(.97)}
-  to{opacity:1;transform:none}
+.card:active{
+  transform:scale(.97);
 }
 
 .cardIcon{
-  font-size:27px;
-  margin-bottom:17px;
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  font-size:19px;
+  background:rgba(124,92,255,.12);
+  color:#a48cff;
+  margin-bottom:16px;
 }
 
 .card h3{
-  margin:0 0 7px;
-  font-size:15px;
+  font-size:16px;
+  margin-bottom:7px;
 }
 
 .card p{
-  margin:0;
+  font-size:12px;
   color:var(--muted);
   line-height:1.45;
-  font-size:12px;
 }
 
-.star{
+.fav{
   position:absolute;
-  top:12px;
-  right:12px;
-  border:0;
-  background:none;
-  color:#60697a;
-  font-size:18px;
-  z-index:2;
+  top:14px;
+  right:14px;
+  width:31px;
+  height:31px;
+  border-radius:10px;
+  background:transparent;
+  color:#667080;
+  transition:.2s;
 }
 
-.star.on{color:#ffd15c}
-
-.empty{
-  display:none;
-  padding:60px 20px;
-  text-align:center;
-  color:var(--muted);
+.fav.active{
+  color:#ffc857;
+  background:rgba(255,200,87,.1);
 }
 
-.bottom{
-  position:fixed;
-  z-index:60;
-  bottom:12px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(510px,calc(100% - 24px));
-  padding:8px;
-  display:flex;
-  gap:5px;
-  border:1px solid var(--line);
-  border-radius:23px;
-  background:rgba(17,21,29,.9);
-  backdrop-filter:blur(20px);
-  box-shadow:var(--shadow);
-}
-
-.light .bottom{background:rgba(255,255,255,.9)}
-
-.bnav{
-  flex:1;
-  padding:8px 5px;
-  border:0;
-  background:none;
-  color:var(--muted);
-  border-radius:16px;
+.cardTag{
+  position:absolute;
+  right:15px;
+  bottom:14px;
   font-size:10px;
-  transition:.25s;
+  color:#667080;
+  text-transform:uppercase;
+  letter-spacing:1px;
 }
 
-.bnav span{
-  display:block;
-  font-size:19px;
-  margin-bottom:3px;
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 
-.bnav.active{
-  color:white;
-  background:rgba(124,92,255,.17);
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
 }
-
-.light .bnav.active{color:#171821}
 
 /* MODAL */
 
 .modal{
   position:fixed;
   inset:0;
-  z-index:100;
+  z-index:1000;
   display:none;
-  background:rgba(0,0,0,.65);
-  backdrop-filter:blur(12px);
-  align-items:flex-end;
+  align-items:center;
   justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(10px);
 }
 
 .modal.show{
   display:flex;
-  animation:fade .2s ease;
+  animation:modalBg .25s;
 }
 
-@keyframes fade{
+.modalBox{
+  width:min(620px,100%);
+  max-height:90vh;
+  overflow:auto;
+  border:1px solid var(--line);
+  border-radius:26px;
+  background:var(--bg2);
+  box-shadow:0 30px 100px rgba(0,0,0,.5);
+  animation:modalIn .35s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes modalBg{
   from{opacity:0}
   to{opacity:1}
 }
 
-.sheet{
-  width:min(700px,100%);
-  max-height:92vh;
-  overflow:auto;
-  padding:20px;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:28px 28px 0 0;
-  box-shadow:0 -30px 80px rgba(0,0,0,.4);
-  animation:sheetIn .35s cubic-bezier(.2,.8,.2,1);
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:scale(.92) translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 
-@keyframes sheetIn{
-  from{transform:translateY(100%)}
-  to{transform:none}
-}
-
-.sheetTop{
+.modalHeader{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin-bottom:18px;
-}
-
-.sheetTitle{
-  display:flex;
   align-items:center;
-  gap:12px;
+  padding:20px;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  background:var(--bg2);
+  z-index:2;
 }
 
-.sheetTitle .big{
-  font-size:28px;
-}
-
-.sheetTitle h2{
-  margin:0;
-  font-family:"Space Grotesk";
-  font-size:21px;
-}
-
-.sheetTitle p{
-  margin:3px 0 0;
-  color:var(--muted);
-  font-size:12px;
+.modalHeader h2{
+  font-size:20px;
 }
 
 .close{
-  width:42px;
-  height:42px;
-  border-radius:13px;
-  background:var(--panel2);
-  border:1px solid var(--line);
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background:var(--card);
   color:var(--text);
 }
 
-.fields{
+.modalBody{
+  padding:20px;
+}
+
+.formGrid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:12px;
+  gap:13px;
 }
 
 .field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
+  margin-bottom:14px;
 }
 
-.field.full{grid-column:1/-1}
+.field.full{
+  grid-column:1/-1;
+}
 
 .field label{
+  display:block;
+  margin-bottom:7px;
   color:var(--muted);
-  font-size:12px;
+  font-size:13px;
 }
 
 .field input,
 .field select{
   width:100%;
-  height:49px;
-  padding:0 13px;
-  outline:0;
-  color:var(--text);
-  background:var(--panel2);
+  height:48px;
+  padding:0 14px;
+  border-radius:13px;
   border:1px solid var(--line);
-  border-radius:14px;
+  outline:0;
+  background:var(--card);
+  color:var(--text);
 }
 
 .field input:focus,
 .field select:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(124,92,255,.1);
+  border-color:#7c5cff;
+  box-shadow:0 0 0 4px rgba(124,92,255,.08);
 }
 
-.calculate{
+.primary{
   width:100%;
-  min-height:52px;
-  margin-top:15px;
-  border-radius:15px;
-  color:white;
-  font-weight:700;
-  background:linear-gradient(135deg,#6848ff,#8d75ff);
-  box-shadow:0 10px 30px rgba(124,92,255,.25);
+  min-height:50px;
+  border-radius:14px;
+  color:#fff;
+  font-weight:800;
+  background:linear-gradient(135deg,#7c5cff,#6948ec);
+  box-shadow:0 12px 30px rgba(124,92,255,.2);
   transition:.25s;
 }
 
-.calculate:hover{transform:translateY(-2px)}
+.primary:hover{
+  transform:translateY(-2px);
+}
 
 .result{
-  margin-top:15px;
-  padding:18px;
+  margin-top:18px;
+  padding:20px;
   border-radius:18px;
-  background:linear-gradient(145deg,rgba(124,92,255,.14),rgba(32,217,165,.05));
-  border:1px solid rgba(124,92,255,.25);
-  display:none;
-  animation:resultIn .4s ease;
+  border:1px solid rgba(124,92,255,.2);
+  background:linear-gradient(
+    135deg,
+    rgba(124,92,255,.12),
+    rgba(53,227,154,.04)
+  );
+  animation:resultIn .4s;
 }
 
-@keyframes resultIn{
-  from{opacity:0;transform:translateY(10px) scale(.98)}
-  to{opacity:1;transform:none}
-}
-
-.result.show{display:block}
-
-.result .label{
+.resultLabel{
   color:var(--muted);
-  font-size:11px;
-  margin-bottom:5px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
 }
 
-.result .value{
-  font-family:"Space Grotesk";
-  font-size:29px;
-  font-weight:700;
+.resultValue{
+  margin-top:5px;
+  font-size:31px;
+  font-weight:900;
   word-break:break-word;
 }
 
-.result .sub{
+.resultExtra{
   color:var(--muted);
-  font-size:12px;
-  margin-top:8px;
+  margin-top:7px;
   line-height:1.5;
 }
 
-.historyItem{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:13px;
-  background:var(--panel2);
-  border:1px solid var(--line);
-  border-radius:14px;
-  margin-bottom:8px;
-}
-
-.historyItem small{color:var(--muted)}
-
-.historyItem b{font-size:13px}
-
-.clearHistory{
-  padding:10px 13px;
-  border-radius:12px;
-  background:rgba(255,85,119,.1);
-  color:#ff6e8b;
-  border:1px solid rgba(255,85,119,.2);
+@keyframes resultIn{
+  from{
+    opacity:0;
+    transform:translateY(12px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 
 /* SCIENTIFIC */
 
 .sciDisplay{
-  background:#080a0e;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:16px;
-  margin-bottom:12px;
-  min-height:105px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
+  padding:20px;
+  border-radius:18px;
+  background:#07090d;
   text-align:right;
+  margin-bottom:14px;
   overflow:hidden;
 }
 
-.light .sciDisplay{background:#eef0f5}
-
-.sciExpr{
-  color:var(--muted);
+.sciExpression{
   min-height:25px;
+  color:#777f91;
   font-size:14px;
-  word-break:break-all;
 }
 
 .sciValue{
-  font-family:"Space Grotesk";
-  font-size:34px;
-  font-weight:600;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  font-size:36px;
+  font-weight:800;
+  margin-top:6px;
+  overflow:auto;
 }
 
-.sciKeys{
+.keypad{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:7px;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
 }
 
 .key{
-  min-height:52px;
+  min-height:55px;
   border-radius:14px;
-  background:var(--panel2);
-  border:1px solid var(--line);
+  background:var(--card);
   color:var(--text);
-  transition:.16s;
+  border:1px solid var(--line);
+  transition:.15s;
 }
 
 .key:hover{
   background:rgba(124,92,255,.15);
-  transform:translateY(-2px);
 }
 
-.key.op{color:#a896ff}
+.key:active{
+  transform:scale(.94);
+}
+
+.key.operator{
+  color:#9c84ff;
+}
+
 .key.equal{
-  color:white;
-  background:linear-gradient(135deg,#6848ff,#8d75ff);
+  background:linear-gradient(135deg,#7c5cff,#6746e5);
+  color:#fff;
 }
 
 /* TOAST */
 
-.toast{
+#toast{
   position:fixed;
-  z-index:200;
   left:50%;
-  bottom:95px;
-  transform:translate(-50%,20px);
+  bottom:28px;
+  z-index:3000;
+  transform:translate(-50%,30px);
   opacity:0;
-  pointer-events:none;
-  background:#181d28;
+  padding:12px 18px;
+  border-radius:13px;
+  background:#171c27;
+  color:#fff;
   border:1px solid var(--line);
-  padding:12px 17px;
-  border-radius:14px;
-  box-shadow:var(--shadow);
-  font-size:13px;
+  box-shadow:0 15px 50px rgba(0,0,0,.3);
   transition:.3s;
+  pointer-events:none;
 }
 
-.toast.show{
+#toast.show{
   opacity:1;
   transform:translate(-50%,0);
 }
 
-/* SPLASH */
+/* BOTTOM NAV */
 
-.splash{
-  position:fixed;
-  z-index:500;
-  inset:0;
-  display:grid;
-  place-items:center;
-  background:#080a0f;
-  transition:.7s;
+.bottomNav{
+  display:none;
 }
 
-.splash.hide{
-  opacity:0;
-  visibility:hidden;
-  transform:scale(1.05);
-}
+/* EMPTY */
 
-.splashLogo{
+.empty{
+  grid-column:1/-1;
   text-align:center;
-  animation:splashPop .8s cubic-bezier(.2,.8,.2,1);
+  padding:60px 20px;
+  color:var(--muted);
 }
 
-.splashLogo .sicon{
-  width:72px;
-  height:72px;
-  margin:auto auto 15px;
-  border-radius:23px;
-  display:grid;
-  place-items:center;
-  font-size:34px;
-  background:linear-gradient(135deg,#6848ff,#a88cff);
-  box-shadow:0 20px 60px rgba(124,92,255,.35);
+/* FOOTER */
+
+footer{
+  margin:60px 0 30px;
+  padding:25px;
+  text-align:center;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:13px;
 }
 
-.splashLogo h1{
-  font-family:"Space Grotesk";
-  margin:0;
-}
-
-.splashLogo p{
-  color:#778093;
-  margin:7px 0 0;
-  font-size:12px;
-}
-
-.loader{
-  width:100px;
-  height:3px;
-  background:#202532;
-  margin:20px auto 0;
-  overflow:hidden;
-  border-radius:20px;
-}
-
-.loader i{
-  display:block;
-  width:45%;
-  height:100%;
-  background:#8d75ff;
-  animation:load 1.2s infinite;
-}
-
-@keyframes load{
-  from{transform:translateX(-120%)}
-  to{transform:translateX(330%)}
-}
-
-@keyframes splashPop{
-  from{opacity:0;transform:scale(.75)}
-  to{opacity:1;transform:none}
+footer b{
+  color:var(--text);
 }
 
 /* RESPONSIVE */
 
-@media(max-width:900px){
-  .grid{grid-template-columns:repeat(3,1fr)}
+@media(max-width:1100px){
+  .grid{
+    grid-template-columns:repeat(3,1fr);
+  }
 }
 
-@media(max-width:650px){
-  .app{padding:0 13px 115px}
-  .nav{padding:0 13px}
-  .hero{padding-top:32px}
-  .hero h1{font-size:43px}
-  .grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .card{min-height:140px;padding:15px}
-  .fields{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
-  .sheet{padding:17px;border-radius:25px 25px 0 0}
+@media(max-width:760px){
+  .app{
+    padding:12px;
+    padding-bottom:90px;
+  }
+
+  .header{
+    top:7px;
+    padding:9px;
+    border-radius:16px;
+  }
+
+  .brandText{
+    display:none;
+  }
+
+  .brandIcon{
+    width:40px;
+    height:40px;
+  }
+
+  .hero{
+    padding:27px 21px;
+    border-radius:22px;
+    margin-top:20px;
+  }
+
+  .hero h1{
+    font-size:38px;
+    letter-spacing:-2px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .card{
+    min-height:145px;
+    padding:15px;
+    border-radius:17px;
+  }
+
+  .card h3{
+    font-size:14px;
+  }
+
+  .card p{
+    font-size:11px;
+  }
+
+  .formGrid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .bottomNav{
+    position:fixed;
+    display:flex;
+    left:10px;
+    right:10px;
+    bottom:10px;
+    z-index:500;
+    padding:8px;
+    justify-content:space-around;
+    border:1px solid var(--line);
+    background:rgba(14,17,24,.88);
+    backdrop-filter:blur(20px);
+    border-radius:20px;
+    box-shadow:0 15px 50px rgba(0,0,0,.35);
+  }
+
+  body.light .bottomNav{
+    background:rgba(255,255,255,.9);
+  }
+
+  .navItem{
+    flex:1;
+    padding:8px 5px;
+    background:transparent;
+    color:var(--muted);
+    border-radius:13px;
+    font-size:11px;
+  }
+
+  .navItem.active{
+    color:var(--text);
+    background:rgba(124,92,255,.12);
+  }
+
+  .navIcon{
+    display:block;
+    font-size:17px;
+    margin-bottom:3px;
+  }
 }
 
-@media(max-width:380px){
-  .grid{grid-template-columns:1fr}
+@media(max-width:400px){
+  .grid{
+    gap:8px;
+  }
+
+  .card{
+    padding:13px;
+  }
+
+  .hero h1{
+    font-size:33px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splashBox">
+    <div class="logoBig">C</div>
+    <div class="splashTitle">CalcX</div>
+    <div class="splashSub">Everything Calculator</div>
+    <div class="loader"><span></span></div>
+  </div>
+</div>
+
 <canvas id="particles"></canvas>
 
-<div class="splash" id="splash">
-  <div class="splashLogo">
-    <div class="sicon">∑</div>
-    <h1>CalcX</h1>
-    <p>Everything calculated.</p>
-    <div class="loader"><i></i></div>
-  </div>
-</div>
+<div class="app">
 
-<header class="topbar">
-  <nav class="nav">
+  <!-- HEADER -->
+  <header class="header">
+
     <div class="brand">
-      <div class="logo">∑</div>
-      <span>CalcX</span>
+      <div class="brandIcon">C</div>
+      <div class="brandText">Calc<span>X</span></div>
     </div>
 
-    <div class="navBtns">
-      <button class="iconBtn" onclick="showHistory()">↺</button>
-      <button class="iconBtn" onclick="toggleTheme()" id="themeBtn">☾</button>
+    <div class="search">
+      <span class="searchIcon">⌕</span>
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search calculators..."
+        autocomplete="off">
     </div>
-  </nav>
-</header>
 
-<main class="app">
+    <button class="iconBtn" id="themeBtn" title="Toggle theme">
+      ☾
+    </button>
 
-<section class="hero">
-  <h1>Calculate<br><span class="gradient">anything.</span></h1>
-  <p>
-    One powerful calculator hub for math, money, conversions, health,
-    students, everyday life and more.
-  </p>
+  </header>
 
-  <div class="search">
-    <span>⌕</span>
-    <input id="search" placeholder="Search calculators..." oninput="searchTools()">
-    <span id="searchCount"></span>
+  <!-- HERO -->
+  <section class="hero">
+
+    <h1>
+      Calculate
+      <span class="gradient">anything.</span>
+    </h1>
+
+    <p>
+      One powerful calculator hub for math, finance, health,
+      students, conversions, technology and everyday calculations.
+    </p>
+
+    <div class="heroStats">
+      <div class="stat"><b id="toolCount">0</b> calculators</div>
+      <div class="stat">⚡ Instant results</div>
+      <div class="stat">📱 Mobile friendly</div>
+      <div class="stat">🔒 No account required</div>
+    </div>
+
+  </section>
+
+  <!-- CATEGORIES -->
+  <div class="categories" id="categories">
+
+    <button class="chip active" data-cat="All">All</button>
+    <button class="chip" data-cat="Math">Math</button>
+    <button class="chip" data-cat="Finance">Finance</button>
+    <button class="chip" data-cat="Convert">Convert</button>
+    <button class="chip" data-cat="Health">Health</button>
+    <button class="chip" data-cat="Student">Student</button>
+    <button class="chip" data-cat="Everyday">Everyday</button>
+    <button class="chip" data-cat="Geometry">Geometry</button>
+    <button class="chip" data-cat="Tech">Tech</button>
+
   </div>
 
-  <div class="stats">
-    <div class="pill"><b id="toolCount">0</b> tools</div>
-    <div class="pill"><b>Offline</b> ready</div>
-    <div class="pill"><b>Free</b> forever</div>
+  <!-- TOOLS -->
+  <div class="sectionHead">
+    <h2>All Calculators</h2>
+    <span id="shownCount"></span>
   </div>
-</section>
 
-<div class="sectionHead">
-  <h2>Explore tools</h2>
-  <small id="currentLabel">All calculators</small>
+  <main class="grid" id="grid"></main>
+
+  <footer>
+    <b>CalcX</b> — Everything Calculator
+    <br><br>
+    Free online calculators for everyday life.
+  </footer>
+
 </div>
 
-<div class="categories" id="categories"></div>
+<!-- BOTTOM NAV -->
+<nav class="bottomNav">
 
-<div class="grid" id="grid"></div>
+  <button class="navItem active" data-scroll="top">
+    <span class="navIcon">⌂</span>
+    Home
+  </button>
 
-<div class="empty" id="empty">
-  <div style="font-size:40px">⌕</div>
-  <h3>No calculators found</h3>
-  <p>Try another search term.</p>
-</div>
+  <button class="navItem" data-scroll="categories">
+    <span class="navIcon">▦</span>
+    Categories
+  </button>
 
-</main>
+  <button class="navItem" id="favNav">
+    <span class="navIcon">★</span>
+    Favorites
+  </button>
 
-<nav class="bottom">
-  <button class="bnav active" onclick="setPage('home',this)">
-    <span>⌂</span>Home
+  <button class="navItem" id="randomNav">
+    <span class="navIcon">⤨</span>
+    Random
   </button>
-  <button class="bnav" onclick="setPage('favorites',this)">
-    <span>☆</span>Favorites
-  </button>
-  <button class="bnav" onclick="openScientific()">
-    <span>∑</span>Scientific
-  </button>
-  <button class="bnav" onclick="showHistory()">
-    <span>◷</span>History
-  </button>
+
 </nav>
 
-<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="sheet" id="sheet"></div>
+<!-- MODAL -->
+<div class="modal" id="modal">
+
+  <div class="modalBox">
+
+    <div class="modalHeader">
+      <h2 id="modalTitle">Calculator</h2>
+      <button class="close" id="closeModal">✕</button>
+    </div>
+
+    <div class="modalBody" id="modalBody"></div>
+
+  </div>
+
 </div>
 
-<div class="toast" id="toast"></div>
+<div id="toast"></div>
 
 <script>
-/* =========================================================
-   CALCX — ALL-IN-ONE CALCULATOR
-========================================================= */
+/* =========================================
+   CALCX
+========================================= */
 
-const tools = [
+const calculators = [
 
-/* BASIC */
-{id:"percentage",name:"Percentage",cat:"Math",icon:"%",desc:"Find percentages, increases and decreases.",fields:[
- ["value","Value","number"],["percent","Percentage","number"]
-],calc:d=>({v:(d.value*d.percent/100),label:"Result",sub:`${d.percent}% of ${d.value}`})},
+/* MATH */
 
-{id:"percentchange",name:"Percentage Change",cat:"Math",icon:"↗",desc:"Calculate percentage increase or decrease.",fields:[
- ["old","Original value","number"],["new","New value","number"]
-],calc:d=>({v:((d.new-d.old)/d.old*100).toFixed(2)+"%",label:"Percentage change",sub:d.new>=d.old?"Increase":"Decrease"})},
+{
+ id:"percentage",
+ name:"Percentage",
+ cat:"Math",
+ icon:"%",
+ desc:"Find percentage of a number.",
+ fields:[
+  ["value","Value","number"],
+  ["percent","Percentage","number"]
+ ],
+ calc:v=>`${v.value * v.percent / 100}`
+},
 
-{id:"average",name:"Average",cat:"Math",icon:"≈",desc:"Calculate the average of numbers.",fields:[
- ["nums","Numbers","text","10,20,30,40"]
-],calc:d=>{let a=d.nums.split(",").map(Number).filter(x=>!isNaN(x));return {v:(a.reduce((x,y)=>x+y,0)/a.length).toFixed(4),label:"Average",sub:`${a.length} numbers`}}},
+{
+ id:"percentchange",
+ name:"Percentage Change",
+ cat:"Math",
+ icon:"↗",
+ desc:"Calculate percentage increase or decrease.",
+ fields:[
+  ["old","Original value","number"],
+  ["new","New value","number"]
+ ],
+ calc:v=>{
+   if(v.old==0)return "Undefined";
+   return `${((v.new-v.old)/Math.abs(v.old)*100).toFixed(2)}%`;
+ }
+},
 
-{id:"ratio",name:"Ratio",cat:"Math",icon:"∶",desc:"Simplify a ratio.",fields:[
- ["a","First number","number"],["b","Second number","number"]
-],calc:d=>{let g=gcd(d.a,d.b);return {v:`${d.a/g} : ${d.b/g}`,label:"Simplified ratio"}}},
+{
+ id:"average",
+ name:"Average",
+ cat:"Math",
+ icon:"AVG",
+ desc:"Calculate the average of numbers.",
+ fields:[
+  ["numbers","Numbers separated by commas","text"]
+ ],
+ calc:v=>{
+   const a=v.numbers.split(",").map(Number).filter(x=>!isNaN(x));
+   if(!a.length)return "Invalid";
+   return a.reduce((x,y)=>x+y,0)/a.length;
+ }
+},
 
-{id:"gcd",name:"GCD / HCF",cat:"Math",icon:"G",desc:"Find greatest common divisor.",fields:[
- ["a","Number A","number"],["b","Number B","number"]
-],calc:d=>({v:gcd(d.a,d.b),label:"GCD / HCF"})},
+{
+ id:"ratio",
+ name:"Ratio",
+ cat:"Math",
+ icon:"∶",
+ desc:"Simplify a ratio.",
+ fields:[
+  ["a","First value","number"],
+  ["b","Second value","number"]
+ ],
+ calc:v=>{
+   const g=gcd(Math.abs(v.a),Math.abs(v.b));
+   return `${v.a/g} : ${v.b/g}`;
+ }
+},
 
-{id:"lcm",name:"LCM",cat:"Math",icon:"L",desc:"Find least common multiple.",fields:[
- ["a","Number A","number"],["b","Number B","number"]
-],calc:d=>({v:Math.abs(d.a*d.b)/gcd(d.a,d.b),label:"LCM"})},
+{
+ id:"gcd",
+ name:"GCD / HCF",
+ cat:"Math",
+ icon:"G",
+ desc:"Find greatest common divisor.",
+ fields:[
+  ["a","First number","number"],
+  ["b","Second number","number"]
+ ],
+ calc:v=>gcd(v.a,v.b)
+},
 
-{id:"power",name:"Power Calculator",cat:"Math",icon:"xⁿ",desc:"Calculate any number raised to a power.",fields:[
- ["a","Base","number"],["b","Exponent","number"]
-],calc:d=>({v:Math.pow(d.a,d.b),label:"Result"})},
+{
+ id:"lcm",
+ name:"LCM",
+ cat:"Math",
+ icon:"L",
+ desc:"Find least common multiple.",
+ fields:[
+  ["a","First number","number"],
+  ["b","Second number","number"]
+ ],
+ calc:v=>{
+   if(!v.a||!v.b)return 0;
+   return Math.abs(v.a*v.b)/gcd(v.a,v.b);
+ }
+},
 
-{id:"sqrt",name:"Square Root",cat:"Math",icon:"√",desc:"Find square and cube roots.",fields:[
- ["a","Number","number"]
-],calc:d=>({v:Math.sqrt(d.a),label:"Square root",sub:`Cube root: ${Math.cbrt(d.a)}`})},
+{
+ id:"power",
+ name:"Power",
+ cat:"Math",
+ icon:"xⁿ",
+ desc:"Calculate a number raised to a power.",
+ fields:[
+  ["base","Base","number"],
+  ["exp","Exponent","number"]
+ ],
+ calc:v=>Math.pow(v.base,v.exp)
+},
 
-{id:"quadratic",name:"Quadratic Equation",cat:"Math",icon:"x²",desc:"Solve ax² + bx + c = 0.",fields:[
- ["a","A","number"],["b","B","number"],["c","C","number"]
-],calc:d=>{let disc=d.b*d.b-4*d.a*d.c;if(disc<0)return{v:"No real roots",label:"Result",sub:"Discriminant is negative"};return{v:`x₁=${((-d.b+Math.sqrt(disc))/(2*d.a)).toFixed(5)}`,label:"Roots",sub:`x₂=${((-d.b-Math.sqrt(disc))/(2*d.a)).toFixed(5)}`}}},
+{
+ id:"sqrt",
+ name:"Square Root",
+ cat:"Math",
+ icon:"√",
+ desc:"Calculate square root.",
+ fields:[
+  ["value","Number","number"]
+ ],
+ calc:v=>Math.sqrt(v.value)
+},
 
-{id:"factorial",name:"Factorial",cat:"Math",icon:"n!",desc:"Calculate n factorial.",fields:[
- ["n","Number","number"]
-],calc:d=>{let n=Math.floor(d.n),r=1;for(let i=2;i<=n;i++)r*=i;return{v:r,label:"Factorial"}}},
+{
+ id:"factorial",
+ name:"Factorial",
+ cat:"Math",
+ icon:"!",
+ desc:"Calculate factorial.",
+ fields:[
+  ["n","Non-negative integer","number"]
+ ],
+ calc:v=>{
+   let n=Math.floor(v.n);
+   if(n<0||n>170)return "Invalid";
+   let r=1;
+   for(let i=2;i<=n;i++)r*=i;
+   return r;
+ }
+},
 
-{id:"discount",name:"Discount",cat:"Finance",icon:"🏷️",desc:"Calculate sale price and savings.",fields:[
- ["price","Original price","number"],["discount","Discount %","number"]
-],calc:d=>{let save=d.price*d.discount/100;return{v:(d.price-save).toFixed(2),label:"Final price",sub:`You save ${save.toFixed(2)}`}}},
+{
+ id:"quadratic",
+ name:"Quadratic Equation",
+ cat:"Math",
+ icon:"x²",
+ desc:"Solve ax² + bx + c = 0.",
+ fields:[
+  ["a","A","number"],
+  ["b","B","number"],
+  ["c","C","number"]
+ ],
+ calc:v=>{
+   const d=v.b*v.b-4*v.a*v.c;
+   if(v.a==0)return "A cannot be 0";
+   if(d<0)return "No real roots";
+   const x1=(-v.b+Math.sqrt(d))/(2*v.a);
+   const x2=(-v.b-Math.sqrt(d))/(2*v.a);
+   return `x₁ = ${x1.toFixed(4)}, x₂ = ${x2.toFixed(4)}`;
+ }
+},
 
-{id:"gst",name:"GST Calculator",cat:"Finance",icon:"₹",desc:"Add or remove GST from a price.",fields:[
- ["price","Amount","number"],["gst","GST %","number"],["mode","Mode","select","Add GST|Remove GST"]
-],calc:d=>{if(d.mode==="Add GST"){let tax=d.price*d.gst/100;return{v:(d.price+tax).toFixed(2),label:"Total with GST",sub:`GST: ${tax.toFixed(2)}`}}let base=d.price/(1+d.gst/100);return{v:base.toFixed(2),label:"Base amount",sub:`GST portion: ${(d.price-base).toFixed(2)}`}}},
+/* FINANCE */
 
-{id:"profit",name:"Profit & Loss",cat:"Finance",icon:"📈",desc:"Calculate profit, loss and margin.",fields:[
- ["cost","Cost price","number"],["sell","Selling price","number"]
-],calc:d=>{let diff=d.sell-d.cost;return{v:Math.abs(diff).toFixed(2),label:diff>=0?"Profit":"Loss",sub:`Margin: ${((diff/d.cost)*100).toFixed(2)}%`}}},
+{
+ id:"discount",
+ name:"Discount",
+ cat:"Finance",
+ icon:"%",
+ desc:"Calculate discounted price.",
+ fields:[
+  ["price","Original price","number"],
+  ["discount","Discount %","number"]
+ ],
+ calc:v=>{
+   const save=v.price*v.discount/100;
+   return `Final: ${(v.price-save).toFixed(2)} | Save: ${save.toFixed(2)}`;
+ }
+},
 
-{id:"simpleinterest",name:"Simple Interest",cat:"Finance",icon:"SI",desc:"Calculate simple interest.",fields:[
- ["p","Principal","number"],["r","Annual rate %","number"],["t","Time in years","number"]
-],calc:d=>{let i=d.p*d.r*d.t/100;return{v:i.toFixed(2),label:"Interest",sub:`Total: ${(d.p+i).toFixed(2)}`}}},
+{
+ id:"gst",
+ name:"GST Calculator",
+ cat:"Finance",
+ icon:"₹",
+ desc:"Calculate GST amount and total.",
+ fields:[
+  ["price","Base price","number"],
+  ["gst","GST %","number"]
+ ],
+ calc:v=>{
+   const tax=v.price*v.gst/100;
+   return `GST: ${tax.toFixed(2)} | Total: ${(v.price+tax).toFixed(2)}`;
+ }
+},
 
-{id:"compound",name:"Compound Interest",cat:"Finance",icon:"CI",desc:"Calculate compound growth.",fields:[
- ["p","Principal","number"],["r","Annual rate %","number"],["t","Years","number"],["n","Compounds/year","number"]
-],calc:d=>{let a=d.p*Math.pow(1+d.r/100/d.n,d.n*d.t);return{v:a.toFixed(2),label:"Final amount",sub:`Interest earned: ${(a-d.p).toFixed(2)}`}}},
+{
+ id:"profit",
+ name:"Profit & Loss",
+ cat:"Finance",
+ icon:"↗",
+ desc:"Calculate profit or loss.",
+ fields:[
+  ["cost","Cost price","number"],
+  ["sell","Selling price","number"]
+ ],
+ calc:v=>{
+   const diff=v.sell-v.cost;
+   const p=v.cost?Math.abs(diff/v.cost*100):0;
+   return diff>=0
+    ?`Profit: ${diff.toFixed(2)} (${p.toFixed(2)}%)`
+    :`Loss: ${Math.abs(diff).toFixed(2)} (${p.toFixed(2)}%)`;
+ }
+},
 
-{id:"emi",name:"EMI Calculator",cat:"Finance",icon:"🏦",desc:"Estimate monthly loan payments.",fields:[
- ["p","Loan amount","number"],["r","Annual interest %","number"],["t","Years","number"]
-],calc:d=>{let m=d.r/1200,n=d.t*12,emi=m?d.p*m*Math.pow(1+m,n)/(Math.pow(1+m,n)-1):d.p/n;return{v:emi.toFixed(2),label:"Monthly EMI",sub:`Total payment: ${(emi*n).toFixed(2)} • Interest: ${(emi*n-d.p).toFixed(2)}`}}},
+{
+ id:"simpleinterest",
+ name:"Simple Interest",
+ cat:"Finance",
+ icon:"SI",
+ desc:"Calculate simple interest.",
+ fields:[
+  ["p","Principal","number"],
+  ["r","Annual rate %","number"],
+  ["t","Time in years","number"]
+ ],
+ calc:v=>{
+   const i=v.p*v.r*v.t/100;
+   return `Interest: ${i.toFixed(2)} | Total: ${(v.p+i).toFixed(2)}`;
+ }
+},
 
-{id:"sip",name:"SIP Calculator",cat:"Finance",icon:"💹",desc:"Estimate SIP investment value.",fields:[
- ["p","Monthly investment","number"],["r","Expected annual return %","number"],["t","Years","number"]
-],calc:d=>{let rm=d.r/1200,n=d.t*12,f=rm?d.p*((Math.pow(1+rm,n)-1)/rm)*(1+rm):d.p*n;return{v:f.toFixed(2),label:"Estimated value",sub:`Invested: ${(d.p*n).toFixed(2)} • Gain: ${(f-d.p*n).toFixed(2)}`}}},
+{
+ id:"compound",
+ name:"Compound Interest",
+ cat:"Finance",
+ icon:"CI",
+ desc:"Calculate compound interest.",
+ fields:[
+  ["p","Principal","number"],
+  ["r","Annual rate %","number"],
+  ["t","Years","number"],
+  ["n","Compounds/year","number"]
+ ],
+ calc:v=>{
+   const a=v.p*Math.pow(1+v.r/100/v.n,v.n*v.t);
+   return `Interest: ${(a-v.p).toFixed(2)} | Total: ${a.toFixed(2)}`;
+ }
+},
 
-{id:"tip",name:"Tip Calculator",cat:"Finance",icon:"🍽️",desc:"Calculate tip and split a bill.",fields:[
- ["bill","Bill amount","number"],["tip","Tip %","number"],["people","People","number"]
-],calc:d=>{let tip=d.bill*d.tip/100,total=d.bill+tip;return{v:(total/d.people).toFixed(2),label:"Per person",sub:`Tip: ${tip.toFixed(2)} • Total: ${total.toFixed(2)}`}}},
+{
+ id:"emi",
+ name:"EMI Calculator",
+ cat:"Finance",
+ icon:"EMI",
+ desc:"Calculate monthly loan EMI.",
+ fields:[
+  ["p","Loan amount","number"],
+  ["r","Annual interest %","number"],
+  ["n","Loan period (months)","number"]
+ ],
+ calc:v=>{
+   const r=v.r/1200;
+   if(r===0)return `EMI: ${(v.p/v.n).toFixed(2)}`;
+   const emi=v.p*r*Math.pow(1+r,v.n)/(Math.pow(1+r,v.n)-1);
+   return `Monthly EMI: ${emi.toFixed(2)} | Total: ${(emi*v.n).toFixed(2)}`;
+ }
+},
+
+{
+ id:"sip",
+ name:"SIP Calculator",
+ cat:"Finance",
+ icon:"SIP",
+ desc:"Estimate SIP investment value.",
+ fields:[
+  ["monthly","Monthly investment","number"],
+  ["rate","Expected annual return %","number"],
+  ["years","Years","number"]
+ ],
+ calc:v=>{
+   const r=v.rate/1200;
+   const n=v.years*12;
+   const value=r===0?v.monthly*n:
+     v.monthly*((Math.pow(1+r,n)-1)/r)*(1+r);
+   const invested=v.monthly*n;
+   return `Value: ${value.toFixed(2)} | Invested: ${invested.toFixed(2)}`;
+ }
+},
+
+{
+ id:"tip",
+ name:"Tip Calculator",
+ cat:"Finance",
+ icon:"TIP",
+ desc:"Calculate tip and total bill.",
+ fields:[
+  ["bill","Bill amount","number"],
+  ["tip","Tip %","number"]
+ ],
+ calc:v=>{
+   const tip=v.bill*v.tip/100;
+   return `Tip: ${tip.toFixed(2)} | Total: ${(v.bill+tip).toFixed(2)}`;
+ }
+},
 
 /* CONVERTERS */
-{id:"length",name:"Length Converter",cat:"Convert",icon:"📏",desc:"Convert common length units.",fields:[
- ["value","Value","number"],["from","From","select","Meter|Kilometer|Centimeter|Millimeter|Mile|Yard|Foot|Inch"],["to","To","select","Meter|Kilometer|Centimeter|Millimeter|Mile|Yard|Foot|Inch"]
-],calc:d=>({v:convertUnit(d.value,d.from,d.to,"length"),label:`${d.from} → ${d.to}`})},
 
-{id:"weight",name:"Weight Converter",cat:"Convert",icon:"⚖️",desc:"Convert mass and weight.",fields:[
- ["value","Value","number"],["from","From","select","Kilogram|Gram|Milligram|Pound|Ounce|Ton"],["to","To","select","Kilogram|Gram|Milligram|Pound|Ounce|Ton"]
-],calc:d=>({v:convertUnit(d.value,d.from,d.to,"weight"),label:`${d.from} → ${d.to}`})},
+{
+ id:"length",
+ name:"Length Converter",
+ cat:"Convert",
+ icon:"↔",
+ desc:"Convert common length units.",
+ fields:[
+  ["value","Value","number"],
+  ["from","From","select","mm,cm,m,km,in,ft,yd,mi"],
+  ["to","To","select","mm,cm,m,km,in,ft,yd,mi"]
+ ],
+ calc:v=>{
+   const f={
+    mm:0.001,cm:.01,m:1,km:1000,
+    in:.0254,ft:.3048,yd:.9144,mi:1609.344
+   };
+   return v.value*f[v.from]/f[v.to];
+ }
+},
 
-{id:"temp",name:"Temperature",cat:"Convert",icon:"🌡️",desc:"Convert Celsius, Fahrenheit and Kelvin.",fields:[
- ["value","Value","number"],["from","From","select","Celsius|Fahrenheit|Kelvin"],["to","To","select","Celsius|Fahrenheit|Kelvin"]
-],calc:d=>({v:tempConvert(d.value,d.from,d.to).toFixed(3),label:`${d.from} → ${d.to}`})},
+{
+ id:"weight",
+ name:"Weight Converter",
+ cat:"Convert",
+ icon:"⚖",
+ desc:"Convert weight and mass.",
+ fields:[
+  ["value","Value","number"],
+  ["from","From","select","mg,g,kg,oz,lb,t"],
+  ["to","To","select","mg,g,kg,oz,lb,t"]
+ ],
+ calc:v=>{
+   const f={
+    mg:.000001,g:.001,kg:1,
+    oz:.0283495,lb:.453592,t:1000
+   };
+   return v.value*f[v.from]/f[v.to];
+ }
+},
 
-{id:"area",name:"Area Converter",cat:"Convert",icon:"▣",desc:"Convert area measurements.",fields:[
- ["value","Value","number"],["from","From","select","Square meter|Square kilometer|Square foot|Square yard|Acre|Hectare"],["to","To","select","Square meter|Square kilometer|Square foot|Square yard|Acre|Hectare"]
-],calc:d=>({v:convertUnit(d.value,d.from,d.to,"area"),label:`${d.from} → ${d.to}`})},
+{
+ id:"temperature",
+ name:"Temperature",
+ cat:"Convert",
+ icon:"°",
+ desc:"Convert Celsius, Fahrenheit and Kelvin.",
+ fields:[
+  ["value","Temperature","number"],
+  ["from","From","select","C,F,K"],
+  ["to","To","select","C,F,K"]
+ ],
+ calc:v=>{
+   let c;
+   if(v.from==="C")c=v.value;
+   if(v.from==="F")c=(v.value-32)*5/9;
+   if(v.from==="K")c=v.value-273.15;
 
-{id:"volume",name:"Volume Converter",cat:"Convert",icon:"🧪",desc:"Convert volume units.",fields:[
- ["value","Value","number"],["from","From","select","Liter|Milliliter|Cubic meter|Gallon|Cup|Fluid ounce"],["to","To","select","Liter|Milliliter|Cubic meter|Gallon|Cup|Fluid ounce"]
-],calc:d=>({v:convertUnit(d.value,d.from,d.to,"volume"),label:`${d.from} → ${d.to}`})},
+   if(v.to==="C")return c;
+   if(v.to==="F")return c*9/5+32;
+   return c+273.15;
+ }
+},
 
-{id:"speed",name:"Speed Converter",cat:"Convert",icon:"🏎️",desc:"Convert speed units.",fields:[
- ["value","Value","number"],["from","From","select","km/h|m/s|mph|knot"],["to","To","select","km/h|m/s|mph|knot"]
-],calc:d=>({v:convertUnit(d.value,d.from,d.to,"speed"),label:`${d.from} → ${d.to}`})},
+{
+ id:"area",
+ name:"Area Converter",
+ cat:"Convert",
+ icon:"▣",
+ desc:"Convert area units.",
+ fields:[
+  ["value","Value","number"],
+  ["from","From","select","m²,km²,ft²,yd²,acre,hectare"],
+  ["to","To","select","m²,km²,ft²,yd²,acre,hectare"]
+ ],
+ calc:v=>{
+   const f={
+    "m²":1,
+    "km²":1000000,
+    "ft²":.092903,
+    "yd²":.836127,
+    acre:4046.856,
+    hectare:10000
+   };
+   return v.value*f[v.from]/f[v.to];
+ }
+},
 
-{id:"data",name:"Data Converter",cat:"Convert",icon:"💾",desc:"Convert digital storage units.",fields:[
- ["value","Value","number"],["from","From","select","Byte|KB|MB|GB|TB"],["to","To","select","Byte|KB|MB|GB|TB"]
-],calc:d=>({v:convertUnit(d.value,d.from,d.to,"data"),label:`${d.from} → ${d.to}`})},
+{
+ id:"volume",
+ name:"Volume Converter",
+ cat:"Convert",
+ icon:"◫",
+ desc:"Convert volume units.",
+ fields:[
+  ["value","Value","number"],
+  ["from","From","select","ml,l,m³,gal,qt,cup"],
+  ["to","To","select","ml,l,m³,gal,qt,cup"]
+ ],
+ calc:v=>{
+   const f={
+    ml:.001,l:1,"m³":1000,
+    gal:3.78541,qt:.946353,cup:.236588
+   };
+   return v.value*f[v.from]/f[v.to];
+ }
+},
 
-{id:"time",name:"Time Converter",cat:"Convert",icon:"⏱️",desc:"Convert seconds, minutes and hours.",fields:[
- ["value","Value","number"],["from","From","select","Second|Minute|Hour|Day|Week"],["to","To","select","Second|Minute|Hour|Day|Week"]
-],calc:d=>({v:convertUnit(d.value,d.from,d.to,"time"),label:`${d.from} → ${d.to}`})},
+{
+ id:"speed",
+ name:"Speed Converter",
+ cat:"Convert",
+ icon:"⚡",
+ desc:"Convert speed units.",
+ fields:[
+  ["value","Speed","number"],
+  ["from","From","select","m/s,km/h,mph,knot"],
+  ["to","To","select","m/s,km/h,mph,knot"]
+ ],
+ calc:v=>{
+   const f={
+    "m/s":1,
+    "km/h":.277778,
+    mph:.44704,
+    knot:.514444
+   };
+   return v.value*f[v.from]/f[v.to];
+ }
+},
+
+{
+ id:"data",
+ name:"Data Storage",
+ cat:"Convert",
+ icon:"▤",
+ desc:"Convert digital storage.",
+ fields:[
+  ["value","Value","number"],
+  ["from","From","select","B,KB,MB,GB,TB"],
+  ["to","To","select","B,KB,MB,GB,TB"]
+ ],
+ calc:v=>{
+   const f={B:1,KB:1024,MB:1024**2,GB:1024**3,TB:1024**4};
+   return v.value*f[v.from]/f[v.to];
+ }
+},
+
+{
+ id:"timeconvert",
+ name:"Time Converter",
+ cat:"Convert",
+ icon:"◷",
+ desc:"Convert time units.",
+ fields:[
+  ["value","Value","number"],
+  ["from","From","select","seconds,minutes,hours,days,weeks"],
+  ["to","To","select","seconds,minutes,hours,days,weeks"]
+ ],
+ calc:v=>{
+   const f={
+    seconds:1,
+    minutes:60,
+    hours:3600,
+    days:86400,
+    weeks:604800
+   };
+   return v.value*f[v.from]/f[v.to];
+ }
+},
 
 /* HEALTH */
-{id:"bmi",name:"BMI Calculator",cat:"Health",icon:"❤️",desc:"Calculate body mass index.",fields:[
- ["weight","Weight (kg)","number"],["height","Height (cm)","number"]
-],calc:d=>{let bmi=d.weight/Math.pow(d.height/100,2);let status=bmi<18.5?"Underweight":bmi<25?"Normal range":bmi<30?"Overweight":"Obesity";return{v:bmi.toFixed(1),label:"BMI",sub:status}}},
 
-{id:"bmr",name:"BMR Calculator",cat:"Health",icon:"🔥",desc:"Estimate basal metabolic rate.",fields:[
- ["weight","Weight (kg)","number"],["height","Height (cm)","number"],["age","Age","number"],["sex","Sex","select","Male|Female"]
-],calc:d=>{let b=10*d.weight+6.25*d.height-5*d.age+(d.sex==="Male"?5:-161);return{v:Math.round(b)+" kcal/day",label:"Estimated BMR",sub:"Mifflin-St Jeor equation"}}},
+{
+ id:"bmi",
+ name:"BMI Calculator",
+ cat:"Health",
+ icon:"BMI",
+ desc:"Calculate body mass index.",
+ fields:[
+  ["weight","Weight (kg)","number"],
+  ["height","Height (cm)","number"]
+ ],
+ calc:v=>{
+   const h=v.height/100;
+   const bmi=v.weight/(h*h);
+   let cat=bmi<18.5?"Underweight":
+     bmi<25?"Normal":
+     bmi<30?"Overweight":"Obesity";
+   return `${bmi.toFixed(1)} — ${cat}`;
+ }
+},
 
-{id:"calorie",name:"Daily Calories",cat:"Health",icon:"🍎",desc:"Estimate daily calorie needs.",fields:[
- ["bmr","BMR","number"],["activity","Activity factor","select","1.2 — Sedentary|1.375 — Light|1.55 — Moderate|1.725 — Very active|1.9 — Athlete"]
-],calc:d=>{let f=parseFloat(d.activity);return{v:Math.round(d.bmr*f)+" kcal/day",label:"Estimated daily calories"}}},
+{
+ id:"bmr",
+ name:"BMR Calculator",
+ cat:"Health",
+ icon:"BMR",
+ desc:"Estimate basal metabolic rate.",
+ fields:[
+  ["weight","Weight (kg)","number"],
+  ["height","Height (cm)","number"],
+  ["age","Age","number"],
+  ["sex","Sex","select","Male,Female"]
+ ],
+ calc:v=>{
+   const bmr=v.sex==="Male"
+    ?10*v.weight+6.25*v.height-5*v.age+5
+    :10*v.weight+6.25*v.height-5*v.age-161;
+   return `${Math.round(bmr)} kcal/day`;
+ }
+},
+
+{
+ id:"calories",
+ name:"Daily Calories",
+ cat:"Health",
+ icon:"CAL",
+ desc:"Estimate daily calorie needs.",
+ fields:[
+  ["bmr","BMR","number"],
+  ["activity","Activity","select","1.2,1.375,1.55,1.725,1.9"]
+ ],
+ calc:v=>`${Math.round(v.bmr*v.activity)} kcal/day`
+},
 
 /* STUDENT */
-{id:"grade",name:"Grade Calculator",cat:"Student",icon:"🎓",desc:"Calculate marks percentage and grade.",fields:[
- ["marks","Marks obtained","number"],["total","Total marks","number"]
-],calc:d=>{let p=d.marks/d.total*100;let g=p>=90?"A+":p>=80?"A":p>=70?"B":p>=60?"C":p>=50?"D":"F";return{v:p.toFixed(2)+"%",label:"Percentage",sub:`Grade: ${g}`}}},
 
-{id:"gpa",name:"GPA Calculator",cat:"Student",icon:"GPA",desc:"Estimate GPA from percentage.",fields:[
- ["percent","Percentage","number"]
-],calc:d=>({v:(d.percent/100*4).toFixed(2),label:"Approx. GPA (4.0 scale)",sub:"Simple percentage conversion; institutions may use different formulas."})},
+{
+ id:"grade",
+ name:"Grade Calculator",
+ cat:"Student",
+ icon:"A",
+ desc:"Calculate percentage and grade.",
+ fields:[
+  ["marks","Marks obtained","number"],
+  ["total","Total marks","number"]
+ ],
+ calc:v=>{
+   const p=v.marks/v.total*100;
+   let g=p>=90?"A+":p>=80?"A":p>=70?"B":p>=60?"C":p>=50?"D":"F";
+   return `${p.toFixed(2)}% — Grade ${g}`;
+ }
+},
 
-{id:"marksneeded",name:"Marks Needed",cat:"Student",icon:"🎯",desc:"Find marks required for a target percentage.",fields:[
- ["total","Total marks","number"],["current","Current marks","number"],["target","Target %","number"]
-],calc:d=>({v:Math.max(0,d.total*d.target/100-d.current).toFixed(2),label:"Additional marks needed"})},
+{
+ id:"gpa",
+ name:"GPA Calculator",
+ cat:"Student",
+ icon:"GPA",
+ desc:"Calculate average GPA.",
+ fields:[
+  ["grades","GPA values separated by commas","text"]
+ ],
+ calc:v=>{
+   const a=v.grades.split(",").map(Number).filter(x=>!isNaN(x));
+   if(!a.length)return "Invalid";
+   return (a.reduce((x,y)=>x+y,0)/a.length).toFixed(2);
+ }
+},
+
+{
+ id:"marksneeded",
+ name:"Marks Needed",
+ cat:"Student",
+ icon:"✓",
+ desc:"Find marks needed for a target percentage.",
+ fields:[
+  ["total","Total marks","number"],
+  ["current","Current marks","number"],
+  ["target","Target percentage","number"]
+ ],
+ calc:v=>{
+   const required=v.total*v.target/100-v.current;
+   return required<=0
+    ?"Target already achieved"
+    :`${required.toFixed(2)} marks needed`;
+ }
+},
 
 /* EVERYDAY */
-{id:"age",name:"Age Calculator",cat:"Everyday",icon:"🎂",desc:"Calculate age from date of birth.",fields:[
- ["dob","Date of birth","date"]
-],calc:d=>{let b=new Date(d.dob),now=new Date();let age=now.getFullYear()-b.getFullYear();let m=now.getMonth()-b.getMonth();if(m<0||(m===0&&now.getDate()<b.getDate()))age--;return{v:age+" years",label:"Age",sub:`Born ${b.toLocaleDateString()}`}}},
 
-{id:"dateDiff",name:"Date Difference",cat:"Everyday",icon:"📅",desc:"Find days between two dates.",fields:[
- ["a","Start date","date"],["b","End date","date"]
-],calc:d=>{let days=Math.abs(new Date(d.b)-new Date(d.a))/86400000;return{v:Math.round(days)+" days",label:"Difference",sub:`≈ ${(days/7).toFixed(2)} weeks`}}},
+{
+ id:"age",
+ name:"Age Calculator",
+ cat:"Everyday",
+ icon:"AGE",
+ desc:"Calculate age from date of birth.",
+ fields:[
+  ["dob","Date of birth","date"]
+ ],
+ calc:v=>{
+   const d=new Date(v.dob);
+   const now=new Date();
 
-{id:"fuel",name:"Fuel Cost",cat:"Everyday",icon:"⛽",desc:"Estimate trip fuel cost.",fields:[
- ["distance","Distance (km)","number"],["eff","Vehicle efficiency (km/L)","number"],["price","Fuel price/L","number"]
-],calc:d=>{let liters=d.distance/d.eff;return{v:(liters*d.price).toFixed(2),label:"Estimated fuel cost",sub:`Fuel required: ${liters.toFixed(2)} L`}}},
+   let years=now.getFullYear()-d.getFullYear();
+   let months=now.getMonth()-d.getMonth();
 
-{id:"electricity",name:"Electricity Cost",cat:"Everyday",icon:"⚡",desc:"Estimate appliance electricity cost.",fields:[
- ["watts","Power (watts)","number"],["hours","Hours/day","number"],["days","Days","number"],["rate","Cost per kWh","number"]
-],calc:d=>{let kwh=d.watts*d.hours*d.days/1000;return{v:(kwh*d.rate).toFixed(2),label:"Estimated cost",sub:`Consumption: ${kwh.toFixed(2)} kWh`}}},
+   if(
+     months<0 ||
+     (months===0 && now.getDate()<d.getDate())
+   )years--;
 
-{id:"split",name:"Bill Splitter",cat:"Everyday",icon:"👥",desc:"Split a bill between people.",fields:[
- ["bill","Bill amount","number"],["people","People","number"],["tip","Tip %","number"]
-],calc:d=>{let total=d.bill*(1+d.tip/100);return{v:(total/d.people).toFixed(2),label:"Each person pays",sub:`Total bill: ${total.toFixed(2)}`}}},
+   return `${years} years old`;
+ }
+},
+
+{
+ id:"fuel",
+ name:"Fuel Cost",
+ cat:"Everyday",
+ icon:"⛽",
+ desc:"Estimate fuel cost for a trip.",
+ fields:[
+  ["distance","Distance (km)","number"],
+  ["mileage","Mileage (km/l)","number"],
+  ["price","Fuel price/litre","number"]
+ ],
+ calc:v=>{
+   const litres=v.distance/v.mileage;
+   return `Fuel: ${litres.toFixed(2)} L | Cost: ${(litres*v.price).toFixed(2)}`;
+ }
+},
+
+{
+ id:"electricity",
+ name:"Electricity Cost",
+ cat:"Everyday",
+ icon:"⚡",
+ desc:"Estimate electricity usage cost.",
+ fields:[
+  ["watts","Device watts","number"],
+  ["hours","Hours per day","number"],
+  ["days","Days","number"],
+  ["rate","Price per kWh","number"]
+ ],
+ calc:v=>{
+   const kwh=v.watts/1000*v.hours*v.days;
+   return `Usage: ${kwh.toFixed(2)} kWh | Cost: ${(kwh*v.rate).toFixed(2)}`;
+ }
+},
+
+{
+ id:"split",
+ name:"Bill Splitter",
+ cat:"Everyday",
+ icon:"÷",
+ desc:"Split a bill between people.",
+ fields:[
+  ["bill","Bill amount","number"],
+  ["people","Number of people","number"],
+  ["tip","Tip %","number"]
+ ],
+ calc:v=>{
+   const total=v.bill*(1+v.tip/100);
+   return `Each person: ${(total/v.people).toFixed(2)} | Total: ${total.toFixed(2)}`;
+ }
+},
+
+{
+ id:"traveltime",
+ name:"Travel Time",
+ cat:"Everyday",
+ icon:"⌁",
+ desc:"Calculate travel time.",
+ fields:[
+  ["distance","Distance","number"],
+  ["speed","Average speed","number"]
+ ],
+ calc:v=>{
+   const hours=v.distance/v.speed;
+   const h=Math.floor(hours);
+   const m=Math.round((hours-h)*60);
+   return `${h}h ${m}m`;
+ }
+},
+
+{
+ id:"datediff",
+ name:"Date Difference",
+ cat:"Everyday",
+ icon:"▣",
+ desc:"Find the number of days between dates.",
+ fields:[
+  ["start","Start date","date"],
+  ["end","End date","date"]
+ ],
+ calc:v=>{
+   const a=new Date(v.start);
+   const b=new Date(v.end);
+   return `${Math.round(Math.abs(b-a)/86400000)} days`;
+ }
+},
 
 /* GEOMETRY */
-{id:"circle",name:"Circle Calculator",cat:"Geometry",icon:"○",desc:"Calculate area and circumference.",fields:[
- ["r","Radius","number"]
-],calc:d=>({v:(Math.PI*d.r*d.r).toFixed(4),label:"Area",sub:`Circumference: ${(2*Math.PI*d.r).toFixed(4)}`})},
 
-{id:"triangle",name:"Triangle Area",cat:"Geometry",icon:"△",desc:"Calculate triangle area.",fields:[
- ["base","Base","number"],["height","Height","number"]
-],calc:d=>({v:(d.base*d.height/2).toFixed(4),label:"Area"})},
+{
+ id:"circle",
+ name:"Circle Calculator",
+ cat:"Geometry",
+ icon:"○",
+ desc:"Calculate circle area and circumference.",
+ fields:[
+  ["r","Radius","number"]
+ ],
+ calc:v=>{
+   const area=Math.PI*v.r*v.r;
+   const c=2*Math.PI*v.r;
+   return `Area: ${area.toFixed(2)} | Circumference: ${c.toFixed(2)}`;
+ }
+},
 
-{id:"pythagoras",name:"Pythagorean",cat:"Geometry",icon:"📐",desc:"Find the missing side of a right triangle.",fields:[
- ["a","Side A","number"],["b","Side B","number"]
-],calc:d=>({v:Math.sqrt(d.a*d.a+d.b*d.b).toFixed(4),label:"Hypotenuse"})},
+{
+ id:"triangle",
+ name:"Triangle Area",
+ cat:"Geometry",
+ icon:"△",
+ desc:"Calculate triangle area.",
+ fields:[
+  ["base","Base","number"],
+  ["height","Height","number"]
+ ],
+ calc:v=>`Area: ${(v.base*v.height/2).toFixed(2)}`
+},
+
+{
+ id:"pythagorean",
+ name:"Pythagorean",
+ cat:"Geometry",
+ icon:"√",
+ desc:"Calculate hypotenuse.",
+ fields:[
+  ["a","Side A","number"],
+  ["b","Side B","number"]
+ ],
+ calc:v=>`c = ${Math.sqrt(v.a*v.a+v.b*v.b).toFixed(4)}`
+},
 
 /* TECH */
-{id:"binary",name:"Binary Converter",cat:"Tech",icon:"01",desc:"Convert decimal and binary.",fields:[
- ["value","Number","text"],["mode","Convert","select","Decimal → Binary|Binary → Decimal"]
-],calc:d=>d.mode.startsWith("Decimal")?({v:Number(d.value).toString(2),label:"Binary"}):({v:parseInt(d.value,2),label:"Decimal"})},
 
-{id:"hex",name:"Hex Converter",cat:"Tech",icon:"#",desc:"Convert decimal and hexadecimal.",fields:[
- ["value","Number","text"],["mode","Convert","select","Decimal → Hex|Hex → Decimal"]
-],calc:d=>d.mode.startsWith("Decimal")?({v:Number(d.value).toString(16).toUpperCase(),label:"Hexadecimal"}):({v:parseInt(d.value,16),label:"Decimal"})},
+{
+ id:"binary",
+ name:"Binary Converter",
+ cat:"Tech",
+ icon:"01",
+ desc:"Convert decimal and binary.",
+ fields:[
+  ["value","Decimal number","number"]
+ ],
+ calc:v=>`${v.value} → ${Number(v.value).toString(2)}`
+},
 
-{id:"basen",name:"Base Converter",cat:"Tech",icon:"10",desc:"Convert numbers between bases 2–36.",fields:[
- ["value","Number","text"],["from","From base","number"],["to","To base","number"]
-],calc:d=>({v:parseInt(d.value,parseInt(d.from)).toString(parseInt(d.to)).toUpperCase(),label:`Base ${d.from} → Base ${d.to}`})},
+{
+ id:"hex",
+ name:"Hex Converter",
+ cat:"Tech",
+ icon:"HEX",
+ desc:"Convert decimal to hexadecimal.",
+ fields:[
+  ["value","Decimal number","number"]
+ ],
+ calc:v=>`${v.value} → ${Number(v.value).toString(16).toUpperCase()}`
+},
 
-{id:"aspect",name:"Aspect Ratio",cat:"Tech",icon:"▭",desc:"Simplify a width × height ratio.",fields:[
- ["w","Width","number"],["h","Height","number"]
-],calc:d=>{let g=gcd(d.w,d.h);return{v:`${d.w/g}:${d.h/g}`,label:"Aspect ratio"}}},
+{
+ id:"base",
+ name:"Base Converter",
+ cat:"Tech",
+ icon:"N",
+ desc:"Convert between number bases.",
+ fields:[
+  ["value","Number","text"],
+  ["from","From base","number"],
+  ["to","To base","number"]
+ ],
+ calc:v=>{
+   const n=parseInt(v.value,v.from);
+   if(isNaN(n))return "Invalid number";
+   return n.toString(Number(v.to)).toUpperCase();
+ }
+},
 
-/* RANDOM / OTHER */
-{id:"random",name:"Random Number",cat:"Other",icon:"🎲",desc:"Generate a random number in a range.",fields:[
- ["min","Minimum","number"],["max","Maximum","number"]
-],calc:d=>({v:Math.floor(Math.random()*(d.max-d.min+1))+Number(d.min),label:"Random number"})},
+{
+ id:"aspect",
+ name:"Aspect Ratio",
+ cat:"Tech",
+ icon:"▭",
+ desc:"Calculate simplified aspect ratio.",
+ fields:[
+  ["w","Width","number"],
+  ["h","Height","number"]
+ ],
+ calc:v=>{
+   const g=gcd(v.w,v.h);
+   return `${v.w/g}:${v.h/g}`;
+ }
+},
 
-{id:"speedtime",name:"Travel Time",cat:"Everyday",icon:"🛣️",desc:"Calculate travel time from distance and speed.",fields:[
- ["distance","Distance","number"],["speed","Speed","number"]
-],calc:d=>{let h=d.distance/d.speed;return{v:`${Math.floor(h)}h ${Math.round((h%1)*60)}m`,label:"Travel time"}}}
+/* OTHER */
+
+{
+ id:"random",
+ name:"Random Number",
+ cat:"Math",
+ icon:"?",
+ desc:"Generate a random number in a range.",
+ fields:[
+  ["min","Minimum","number"],
+  ["max","Maximum","number"]
+ ],
+ calc:v=>{
+   return Math.floor(Math.random()*(v.max-v.min+1))+Number(v.min);
+ }
+}
 
 ];
 
-const categories=["All","Math","Finance","Convert","Health","Student","Everyday","Geometry","Tech","Other"];
-
-let favorites=JSON.parse(localStorage.getItem("calcx_favorites")||"[]");
-let history=JSON.parse(localStorage.getItem("calcx_history")||"[]");
-let activeCat="All";
-let currentPage="home";
-
-document.getElementById("toolCount").textContent=tools.length;
-
-function save(){
-  localStorage.setItem("calcx_favorites",JSON.stringify(favorites));
-  localStorage.setItem("calcx_history",JSON.stringify(history.slice(0,30)));
-}
+/* =========================================
+   HELPERS
+========================================= */
 
 function gcd(a,b){
-  a=Math.abs(Math.round(a));b=Math.abs(Math.round(b));
-  while(b){let t=b;b=a%b;a=t}
+  a=Math.abs(Math.round(a));
+  b=Math.abs(Math.round(b));
+
+  while(b){
+    [a,b]=[b,a%b];
+  }
+
   return a||1;
 }
 
-function esc(x){
-  return String(x).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+function esc(s){
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;");
 }
 
-function renderCategories(){
-  document.getElementById("categories").innerHTML=categories.map(c=>
-    `<button class="category ${activeCat===c?"active":""}" onclick="selectCategory('${c}')">${c}</button>`
-  ).join("");
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;
+  t.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer=setTimeout(()=>{
+    t.classList.remove("show");
+  },2200);
 }
 
-function selectCategory(c){
-  activeCat=c;
-  currentPage="home";
-  document.getElementById("search").value="";
-  renderCategories();
-  renderTools();
-  document.getElementById("currentLabel").textContent=c==="All"?"All calculators":c;
-  window.scrollTo({top:300,behavior:"smooth"});
+/* =========================================
+   STORAGE
+========================================= */
+
+let favorites=
+  JSON.parse(localStorage.getItem("calcxFavorites")||"[]");
+
+function saveFavorites(){
+  localStorage.setItem(
+    "calcxFavorites",
+    JSON.stringify(favorites)
+  );
 }
 
-function renderTools(){
-  let q=document.getElementById("search").value.toLowerCase().trim();
+/* =========================================
+   RENDER
+========================================= */
 
-  let list=tools.filter(t=>{
-    let cat=activeCat==="All"||t.cat===activeCat;
-    let search=!q||(t.name+" "+t.cat+" "+t.desc).toLowerCase().includes(q);
-    let fav=currentPage==="favorites"?favorites.includes(t.id):true;
-    return cat&&search&&fav;
-  });
+let currentCategory="All";
+
+function render(){
+
+  const query=
+    document.getElementById("searchInput")
+      .value
+      .trim()
+      .toLowerCase();
 
   const grid=document.getElementById("grid");
-  const empty=document.getElementById("empty");
 
-  grid.innerHTML=list.map((t,i)=>`
-    <article class="card" style="animation-delay:${Math.min(i*25,350)}ms" onclick="openTool('${t.id}')">
-      <button class="star ${favorites.includes(t.id)?"on":""}" onclick="event.stopPropagation();toggleFav('${t.id}')">
-        ${favorites.includes(t.id)?"★":"☆"}
-      </button>
-      <div class="cardIcon">${t.icon}</div>
-      <h3>${esc(t.name)}</h3>
-      <p>${esc(t.desc)}</p>
-    </article>
-  `).join("");
+  const list=calculators.filter(c=>{
 
-  empty.style.display=list.length?"none":"block";
+    const categoryOK=
+      currentCategory==="All" ||
+      c.cat===currentCategory;
 
-  document.getElementById("searchCount").textContent=q?list.length:"";
-}
+    const searchOK=
+      !query ||
+      c.name.toLowerCase().includes(query) ||
+      c.desc.toLowerCase().includes(query) ||
+      c.cat.toLowerCase().includes(query);
 
-function searchTools(){
-  activeCat="All";
-  renderCategories();
-  renderTools();
-  document.getElementById("currentLabel").textContent="Search results";
-}
-
-function toggleFav(id){
-  if(favorites.includes(id)){
-    favorites=favorites.filter(x=>x!==id);
-    toast("Removed from favorites");
-  }else{
-    favorites.push(id);
-    toast("Added to favorites ⭐");
-  }
-  save();
-  renderTools();
-}
-
-function setPage(page,btn){
-  document.querySelectorAll(".bnav").forEach(x=>x.classList.remove("active"));
-  btn.classList.add("active");
-  currentPage=page;
-  activeCat="All";
-  document.getElementById("search").value="";
-  renderCategories();
-  renderTools();
-  document.getElementById("currentLabel").textContent=page==="favorites"?"Your favorites":"All calculators";
-  window.scrollTo({top:250,behavior:"smooth"});
-}
-
-function openTool(id){
-  let t=tools.find(x=>x.id===id);
-  if(!t)return;
-
-  let fields=t.fields.map(f=>{
-    let [key,label,type,opts]=f;
-
-    if(type==="select"){
-      let options=opts.split("|").map(o=>`<option>${esc(o)}</option>`).join("");
-      return `<div class="field">
-        <label>${esc(label)}</label>
-        <select id="f_${key}">${options}</select>
-      </div>`;
-    }
-
-    return `<div class="field">
-      <label>${esc(label)}</label>
-      <input id="f_${key}" type="${type}" ${type==="text"?"":"step='any'"} placeholder="${opts||""}">
-    </div>`;
-  }).join("");
-
-  document.getElementById("sheet").innerHTML=`
-    <div class="sheetTop">
-      <div class="sheetTitle">
-        <div class="big">${t.icon}</div>
-        <div>
-          <h2>${esc(t.name)}</h2>
-          <p>${esc(t.desc)}</p>
-        </div>
-      </div>
-      <button class="close" onclick="closeModal()">×</button>
-    </div>
-
-    <div class="fields">${fields}</div>
-
-    <button class="calculate" onclick="calculate('${t.id}')">
-      Calculate →
-    </button>
-
-    <div class="result" id="result">
-      <div class="label" id="resultLabel"></div>
-      <div class="value" id="resultValue"></div>
-      <div class="sub" id="resultSub"></div>
-    </div>
-  `;
-
-  showModal();
-}
-
-function getData(t){
-  let d={};
-
-  t.fields.forEach(f=>{
-    let el=document.getElementById("f_"+f[0]);
-    let value=el?el.value:"";
-    d[f[0]]=f[2]==="number"?parseFloat(value):value;
+    return categoryOK && searchOK;
   });
 
-  return d;
-}
+  grid.innerHTML="";
 
-function calculate(id){
-  let t=tools.find(x=>x.id===id);
+  document.getElementById("shownCount").textContent=
+    `${list.length} available`;
 
-  try{
-    let d=getData(t);
+  if(!list.length){
+    grid.innerHTML=`
+      <div class="empty">
+        <div style="font-size:35px;margin-bottom:10px">⌕</div>
+        <h3>No calculators found</h3>
+        <p style="margin-top:6px">
+          Try another search or category.
+        </p>
+      </div>
+    `;
+    return;
+  }
 
-    for(let f of t.fields){
-      if(f[2]==="number" && !isFinite(d[f[0]])){
-        toast("Please enter all numbers");
-        return;
-      }
-    }
+  list.forEach((c,index)=>{
 
-    let r=t.calc(d);
+    const card=document.createElement("article");
 
-    document.getElementById("resultLabel").textContent=r.label||"Result";
-    document.getElementById("resultValue").textContent=r.v;
-    document.getElementById("resultSub").textContent=r.sub||"";
+    card.className="card";
 
-    document.getElementById("result").classList.add("show");
+    card.style.animationDelay=
+      `${Math.min(index*35,500)}ms`;
 
-    history.unshift({
-      name:t.name,
-      value:String(r.v),
-      time:new Date().toLocaleString()
+    const isFav=favorites.includes(c.id);
+
+    card.innerHTML=`
+      <button class="fav ${isFav?"active":""}"
+        data-fav="${c.id}">
+        ${isFav?"★":"☆"}
+      </button>
+
+      <div class="cardIcon">${esc(c.icon)}</div>
+
+      <h3>${esc(c.name)}</h3>
+
+      <p>${esc(c.desc)}</p>
+
+      <div class="cardTag">${esc(c.cat)}</div>
+    `;
+
+    card.addEventListener("click",e=>{
+
+      if(e.target.closest(".fav"))return;
+
+      openCalculator(c);
     });
 
-    save();
-    burst();
-  }catch(e){
-    toast("Check the values and try again");
-  }
+    const fav=card.querySelector(".fav");
+
+    fav.addEventListener("click",e=>{
+      e.stopPropagation();
+
+      if(favorites.includes(c.id)){
+        favorites=favorites.filter(x=>x!==c.id);
+        fav.classList.remove("active");
+        fav.textContent="☆";
+        toast("Removed from favorites");
+      }else{
+        favorites.push(c.id);
+        fav.classList.add("active");
+        fav.textContent="★";
+        toast("Added to favorites ⭐");
+      }
+
+      saveFavorites();
+    });
+
+    grid.appendChild(card);
+  });
 }
 
-function showModal(){
-  document.getElementById("modal").classList.add("show");
+/* =========================================
+   MODAL
+========================================= */
+
+const modal=document.getElementById("modal");
+const modalTitle=document.getElementById("modalTitle");
+const modalBody=document.getElementById("modalBody");
+
+function openCalculator(c){
+
+  modalTitle.textContent=c.name;
+
+  let html=`<div class="formGrid">`;
+
+  c.fields.forEach(f=>{
+
+    const [id,label,type,options]=f;
+
+    html+=`
+      <div class="field ${type==="text"||type==="date"?"full":""}">
+        <label>${esc(label)}</label>
+    `;
+
+    if(type==="select"){
+
+      html+=`
+        <select id="field_${id}">
+          ${options.split(",").map(x=>
+            `<option value="${esc(x)}">${esc(x)}</option>`
+          ).join("")}
+        </select>
+      `;
+
+    }else{
+
+      html+=`
+        <input
+          id="field_${id}"
+          type="${type}"
+          ${type==="number"?'step="any"':''}
+          placeholder="${esc(label)}">
+      `;
+    }
+
+    html+=`</div>`;
+  });
+
+  html+=`
+    </div>
+
+    <button class="primary" id="calculateBtn">
+      Calculate
+    </button>
+
+    <div id="resultArea"></div>
+  `;
+
+  modalBody.innerHTML=html;
+
+  document
+    .getElementById("calculateBtn")
+    .addEventListener("click",()=>{
+
+      const values={};
+
+      c.fields.forEach(f=>{
+        const id=f[0];
+        const type=f[2];
+
+        const el=document.getElementById(`field_${id}`);
+
+        values[id]=
+          type==="number"
+            ?Number(el.value)
+            :el.value;
+      });
+
+      try{
+
+        const result=c.calc(values);
+
+        showResult(result,c);
+
+      }catch(err){
+
+        showResult("Please check your inputs.",c);
+      }
+
+    });
+
+  modal.classList.add("show");
   document.body.style.overflow="hidden";
 }
 
+function showResult(result,c){
+
+  const area=document.getElementById("resultArea");
+
+  area.innerHTML=`
+    <div class="result">
+
+      <div class="resultLabel">Result</div>
+
+      <div class="resultValue">
+        ${esc(result)}
+      </div>
+
+      <div class="resultExtra">
+        ${esc(c.name)} calculation completed instantly.
+      </div>
+
+      <button
+        id="copyResult"
+        style="
+          margin-top:15px;
+          padding:10px 14px;
+          border-radius:11px;
+          background:rgba(124,92,255,.12);
+          color:#a894ff;
+          border:1px solid rgba(124,92,255,.2);
+        ">
+        Copy Result
+      </button>
+
+    </div>
+  `;
+
+  document
+    .getElementById("copyResult")
+    .onclick=()=>{
+
+      navigator.clipboard
+        ?.writeText(String(result))
+        .then(()=>{
+          toast("Result copied ✓");
+        })
+        .catch(()=>{
+          toast("Result: "+result);
+        });
+    };
+
+  resultBurst();
+}
+
+/* =========================================
+   MODAL CLOSE
+========================================= */
+
 function closeModal(){
-  document.getElementById("modal").classList.remove("show");
+  modal.classList.remove("show");
   document.body.style.overflow="";
 }
 
-function showHistory(){
-  let content=history.length?
-    history.map(h=>`
-      <div class="historyItem">
-        <div>
-          <b>${esc(h.name)}</b>
-          <small style="display:block">${esc(h.time)}</small>
-        </div>
-        <b>${esc(h.value)}</b>
-      </div>
-    `).join("")
-    :`<div style="text-align:center;padding:40px;color:var(--muted)">No calculations yet.</div>`;
+document
+  .getElementById("closeModal")
+  .addEventListener("click",closeModal);
 
-  document.getElementById("sheet").innerHTML=`
-    <div class="sheetTop">
-      <div class="sheetTitle">
-        <div class="big">◷</div>
-        <div>
-          <h2>Calculation history</h2>
-          <p>Your recent results</p>
-        </div>
-      </div>
-      <button class="close" onclick="closeModal()">×</button>
-    </div>
-
-    ${history.length?`<button class="clearHistory" onclick="clearHistory()">Clear history</button>`:""}
-    <div style="margin-top:13px">${content}</div>
-  `;
-
-  showModal();
-}
-
-function clearHistory(){
-  history=[];
-  save();
-  showHistory();
-  toast("History cleared");
-}
-
-function openScientific(){
-  document.getElementById("sheet").innerHTML=`
-    <div class="sheetTop">
-      <div class="sheetTitle">
-        <div class="big">∑</div>
-        <div>
-          <h2>Scientific Calculator</h2>
-          <p>Powerful everyday math engine</p>
-        </div>
-      </div>
-      <button class="close" onclick="closeModal()">×</button>
-    </div>
-
-    <div class="sciDisplay">
-      <div class="sciExpr" id="sciExpr"></div>
-      <div class="sciValue" id="sciValue">0</div>
-    </div>
-
-    <div class="sciKeys">
-      ${[
-        ["AC","clear"],["⌫","back"],["(", "("], [")",")"],["÷","/"],
-        ["sin","sin"],["cos","cos"],["tan","tan"],["√","sqrt"],["×","*"],
-        ["7","7"],["8","8"],["9","9"],["π","pi"],["−","-"],
-        ["4","4"],["5","5"],["6","6"],["^","^"],["+","+"],
-        ["1","1"],["2","2"],["3","3"],[".","."],["=","="],
-        ["0","0"],["log","log"],["ln","ln"],["%","%"],["Ans","ans"]
-      ].map(x=>`<button class="key ${["/","*","-","+","="].includes(x[1])?"op":""}" onclick="sci('${x[1]}')">${x[0]}</button>`).join("")}
-    </div>
-  `;
-
-  showModal();
-}
-
-let sciExpression="";
-let lastAnswer=0;
-
-function sci(x){
-  const expr=document.getElementById("sciExpr");
-  const val=document.getElementById("sciValue");
-
-  if(x==="clear"){
-    sciExpression="";
-    val.textContent="0";
-    expr.textContent="";
-    return;
-  }
-
-  if(x==="back"){
-    sciExpression=sciExpression.slice(0,-1);
-    val.textContent=sciExpression||"0";
-    return;
-  }
-
-  if(x==="="){
-    try{
-      let e=sciExpression
-        .replace(/π/g,"Math.PI")
-        .replace(/sin\(/g,"Math.sin(")
-        .replace(/cos\(/g,"Math.cos(")
-        .replace(/tan\(/g,"Math.tan(")
-        .replace(/sqrt\(/g,"Math.sqrt(")
-        .replace(/log\(/g,"Math.log10(")
-        .replace(/ln\(/g,"Math.log(")
-        .replace(/\^/g,"**")
-        .replace(/%/g,"/100");
-
-      let result=Function('"use strict";return ('+e+')')();
-
-      if(!isFinite(result))throw Error();
-
-      lastAnswer=result;
-      expr.textContent=sciExpression+" =";
-      val.textContent=formatNumber(result);
-      sciExpression=String(result);
-      history.unshift({
-        name:"Scientific Calculator",
-        value:String(result),
-        time:new Date().toLocaleString()
-      });
-      save();
-      burst();
-    }catch{
-      val.textContent="Error";
-    }
-    return;
-  }
-
-  if(x==="ans")x=String(lastAnswer);
-
-  if(["sin","cos","tan","sqrt","log","ln"].includes(x)){
-    sciExpression+=x+"(";
-  }else if(x==="pi"){
-    sciExpression+="π";
-  }else{
-    sciExpression+=x;
-  }
-
-  val.textContent=sciExpression;
-}
-
-function formatNumber(n){
-  if(Math.abs(n)>1e12||Math.abs(n)<1e-7&&n!==0)return n.toExponential(8);
-  return Number(n.toFixed(10)).toString();
-}
-
-/* UNIT CONVERTERS */
-
-const units={
-length:{
-"Meter":1,"Kilometer":1000,"Centimeter":.01,"Millimeter":.001,
-"Mile":1609.344,"Yard":.9144,"Foot":.3048,"Inch":.0254
-},
-weight:{
-"Kilogram":1,"Gram":.001,"Milligram":.000001,
-"Pound":.45359237,"Ounce":.0283495,"Ton":1000
-},
-area:{
-"Square meter":1,"Square kilometer":1e6,"Square foot":.092903,
-"Square yard":.836127,"Acre":4046.856422,"Hectare":10000
-},
-volume:{
-"Liter":1,"Milliliter":.001,"Cubic meter":1000,
-"Gallon":3.785411784,"Cup":.2365882365,"Fluid ounce":.0295735296
-},
-speed:{
-"km/h":1,"m/s":3.6,"mph":1.609344,"knot":1.852
-},
-data:{
-"Byte":1,"KB":1024,"MB":1024**2,"GB":1024**3,"TB":1024**4
-},
-time:{
-"Second":1,"Minute":60,"Hour":3600,"Day":86400,"Week":604800
-}
-};
-
-function convertUnit(value,from,to,type){
-  let u=units[type];
-  return (value*u[from]/u[to]).toPrecision(10);
-}
-
-function tempConvert(v,from,to){
-  let c;
-  if(from==="Celsius")c=v;
-  else if(from==="Fahrenheit")c=(v-32)*5/9;
-  else c=v-273.15;
-
-  if(to==="Celsius")return c;
-  if(to==="Fahrenheit")return c*9/5+32;
-  return c+273.15;
-}
-
-/* THEME */
-
-function toggleTheme(){
-  document.body.classList.toggle("light");
-  let light=document.body.classList.contains("light");
-  localStorage.setItem("calcx_theme",light?"light":"dark");
-  document.getElementById("themeBtn").textContent=light?"☀":"☾";
-}
-
-if(localStorage.getItem("calcx_theme")==="light"){
-  document.body.classList.add("light");
-  document.getElementById("themeBtn").textContent="☀";
-}
-
-/* TOAST */
-
-let toastTimer;
-
-function toast(msg){
-  let t=document.getElementById("toast");
-  t.textContent=msg;
-  t.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
-}
-
-/* PARTICLES */
-
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-let particles=[];
-
-function resizeCanvas(){
-  canvas.width=innerWidth;
-  canvas.height=innerHeight;
-}
-
-function makeParticles(){
-  particles=Array.from({length:35},()=>({
-    x:Math.random()*innerWidth,
-    y:Math.random()*innerHeight,
-    r:Math.random()*1.7+.3,
-    vx:(Math.random()-.5)*.25,
-    vy:(Math.random()-.5)*.25,
-    a:Math.random()*.4+.1
-  }));
-}
-
-function particleLoop(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  for(let p of particles){
-    p.x+=p.vx;
-    p.y+=p.vy;
-
-    if(p.x<0)p.x=innerWidth;
-    if(p.x>innerWidth)p.x=0;
-    if(p.y<0)p.y=innerHeight;
-    if(p.y>innerHeight)p.y=0;
-
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle=`rgba(150,130,255,${p.a})`;
-    ctx.fill();
-  }
-
-  requestAnimationFrame(particleLoop);
-}
-
-function burst(){
-  for(let i=0;i<18;i++){
-    let el=document.createElement("span");
-    el.style.position="fixed";
-    el.style.left="50%";
-    el.style.top="50%";
-    el.style.width="5px";
-    el.style.height="5px";
-    el.style.borderRadius="50%";
-    el.style.background=i%2?"#20d9a5":"#8d75ff";
-    el.style.zIndex="300";
-    el.style.pointerEvents="none";
-
-    let a=Math.random()*Math.PI*2;
-    let d=40+Math.random()*110;
-
-    el.animate([
-      {transform:"translate(-50%,-50%) scale(1)",opacity:1},
-      {transform:`translate(calc(-50% + ${Math.cos(a)*d}px),calc(-50% + ${Math.sin(a)*d}px)) scale(0)`,opacity:0}
-    ],{
-      duration:500+Math.random()*300,
-      easing:"cubic-bezier(.2,.8,.2,1)"
-    });
-
-    document.body.appendChild(el);
-    setTimeout(()=>el.remove(),900);
-  }
-}
-
-window.addEventListener("resize",resizeCanvas);
-
-resizeCanvas();
-makeParticles();
-particleLoop();
-
-renderCategories();
-renderTools();
-
-setTimeout(()=>{
-  document.getElementById("splash").classList.add("hide");
-},900);
+modal.addEventListener("click",e=>{
+  if(e.target===modal)closeModal();
+});
 
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape")closeModal();
 });
+
+/* =========================================
+   SEARCH
+========================================= */
+
+document
+  .getElementById("searchInput")
+  .addEventListener("input",render);
+
+/* =========================================
+   CATEGORIES
+========================================= */
+
+document
+  .getElementById("categories")
+  .addEventListener("click",e=>{
+
+    const btn=e.target.closest(".chip");
+
+    if(!btn)return;
+
+    document
+      .querySelectorAll(".chip")
+      .forEach(x=>x.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    currentCategory=btn.dataset.cat;
+
+    render();
+  });
+
+/* =========================================
+   THEME
+========================================= */
+
+const savedTheme=
+  localStorage.getItem("calcxTheme");
+
+if(savedTheme==="light"){
+  document.body.classList.add("light");
+}
+
+function updateThemeIcon(){
+
+  document.getElementById("themeBtn").textContent=
+    document.body.classList.contains("light")
+      ?"☀"
+      :"☾";
+}
+
+updateThemeIcon();
+
+document
+  .getElementById("themeBtn")
+  .addEventListener("click",()=>{
+
+    document.body.classList.toggle("light");
+
+    localStorage.setItem(
+      "calcxTheme",
+      document.body.classList.contains("light")
+        ?"light"
+        :"dark"
+    );
+
+    updateThemeIcon();
+  });
+
+/* =========================================
+   FAVORITES NAV
+========================================= */
+
+document
+  .getElementById("favNav")
+  .addEventListener("click",()=>{
+
+    const favs=calculators.filter(c=>
+      favorites.includes(c.id)
+    );
+
+    if(!favs.length){
+      toast("No favorite calculators yet ⭐");
+      return;
+    }
+
+    document.getElementById("searchInput").value="";
+
+    document
+      .querySelectorAll(".chip")
+      .forEach(x=>x.classList.remove("active"));
+
+    document
+      .querySelector('.chip[data-cat="All"]')
+      .classList.add("active");
+
+    currentCategory="All";
+
+    const grid=document.getElementById("grid");
+
+    grid.innerHTML="";
+
+    favs.forEach(c=>{
+      const card=document.createElement("article");
+
+      card.className="card";
+
+      card.innerHTML=`
+        <button class="fav active">★</button>
+        <div class="cardIcon">${esc(c.icon)}</div>
+        <h3>${esc(c.name)}</h3>
+        <p>${esc(c.desc)}</p>
+        <div class="cardTag">${esc(c.cat)}</div>
+      `;
+
+      card.onclick=()=>openCalculator(c);
+
+      grid.appendChild(card);
+    });
+
+    document
+      .getElementById("shownCount")
+      .textContent=`${favs.length} favorites`;
+
+    window.scrollTo({
+      top:document.querySelector(".sectionHead").offsetTop-80,
+      behavior:"smooth"
+    });
+  });
+
+/* =========================================
+   RANDOM
+========================================= */
+
+document
+  .getElementById("randomNav")
+  .addEventListener("click",()=>{
+
+    const c=
+      calculators[
+        Math.floor(Math.random()*calculators.length)
+      ];
+
+    openCalculator(c);
+  });
+
+/* =========================================
+   BOTTOM NAV
+========================================= */
+
+document
+  .querySelectorAll(".navItem[data-scroll]")
+  .forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+
+      const target=btn.dataset.scroll;
+
+      if(target==="top"){
+        window.scrollTo({
+          top:0,
+          behavior:"smooth"
+        });
+      }else{
+
+        document
+          .getElementById(target)
+          ?.scrollIntoView({
+            behavior:"smooth"
+          });
+      }
+
+      document
+        .querySelectorAll(".navItem")
+        .forEach(x=>x.classList.remove("active"));
+
+      btn.classList.add("active");
+    });
+
+  });
+
+/* =========================================
+   RESULT BURST
+========================================= */
+
+function resultBurst(){
+
+  for(let i=0;i<14;i++){
+
+    const p=document.createElement("span");
+
+    p.style.position="fixed";
+    p.style.width="6px";
+    p.style.height="6px";
+    p.style.borderRadius="50%";
+    p.style.background=
+      i%2?"#7c5cff":"#35e39a";
+    p.style.left="50%";
+    p.style.top="45%";
+    p.style.zIndex="5000";
+    p.style.pointerEvents="none";
+
+    const angle=Math.random()*Math.PI*2;
+    const distance=50+Math.random()*120;
+
+    p.animate([
+      {
+        transform:"translate(-50%,-50%) scale(1)",
+        opacity:1
+      },
+      {
+        transform:
+          `translate(
+            ${Math.cos(angle)*distance}px,
+            ${Math.sin(angle)*distance}px
+          ) scale(0)`,
+        opacity:0
+      }
+    ],{
+      duration:600+Math.random()*400,
+      easing:"cubic-bezier(.2,.8,.2,1)"
+    });
+
+    document.body.appendChild(p);
+
+    setTimeout(()=>p.remove(),1100);
+  }
+}
+
+/* =========================================
+   PARTICLES
+========================================= */
+
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+let particles=[];
+
+function resizeCanvas(){
+
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+
+  particles=Array.from({
+    length:Math.min(55,Math.floor(innerWidth/20))
+  },()=>({
+    x:Math.random()*innerWidth,
+    y:Math.random()*innerHeight,
+    r:Math.random()*1.7+.4,
+    vx:(Math.random()-.5)*.2,
+    vy:(Math.random()-.5)*.2,
+    a:Math.random()*.45+.1
+  }));
+}
+
+resizeCanvas();
+
+addEventListener("resize",resizeCanvas);
+
+function animateParticles(){
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  particles.forEach(p=>{
+
+    p.x+=p.vx;
+    p.y+=p.vy;
+
+    if(p.x<0)p.x=canvas.width;
+    if(p.x>canvas.width)p.x=0;
+    if(p.y<0)p.y=canvas.height;
+    if(p.y>canvas.height)p.y=0;
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+
+    ctx.fillStyle=
+      `rgba(140,120,255,${p.a})`;
+
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+
+/* =========================================
+   INIT
+========================================= */
+
+document.getElementById("toolCount").textContent=
+  calculators.length;
+
+render();
+
+setTimeout(()=>{
+  document.getElementById("splash").classList.add("hide");
+},1100);
 
 </script>
 
